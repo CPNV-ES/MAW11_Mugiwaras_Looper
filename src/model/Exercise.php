@@ -1,12 +1,13 @@
 <?php
 
-namespace model;
+namespace App\Model;
 
-class exercise
+use App\Model\DatabaseConnection;
+
+class Exercise
 {
-    function getAllExercises()
+    function getAllExercisesTitle()
     {
-        require_once("./model/DatabaseConnection.php");
         return DatabaseConnection::dbConnect()->query("SELECT title_exercise FROM exercises")->fetchAll();
     }
 }

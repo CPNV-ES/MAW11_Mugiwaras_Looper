@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 class DatabaseConnection
 {
     public static function dbConnect()

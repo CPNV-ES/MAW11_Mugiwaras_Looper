@@ -1,4 +1,3 @@
-/* Define your styles here */
 html {
     box-sizing: border-box;
     font-size: 62.5%;
@@ -18,18 +17,22 @@ body {
     line-height: 1.6;
     margin: 0;
 }
+
 header {
     background-color: rgba(155, 77, 202, 1);
 }
+
 header.dashboard .container {
     text-align: center;
     font-size: 3rem;
     color: white;
     padding: 2rem;
 }
+
 p {
     margin-top: 0;
 }
+
 header.dashboard .container h1 {
     letter-spacing: 1.1rem;
 }
@@ -39,9 +42,11 @@ header.heading img {
     max-width: 100%;
     border-style: none;
 }
+
 header.answering {
     background-color: rgba(155, 77, 202, 1);
 }
+
 header.heading {
     height: 5rem;
     color: white;
@@ -53,6 +58,7 @@ header.heading {
     width: 100%;
     z-index: 1;
 }
+
 header.heading .exercise-label {
     margin: auto auto auto 2rem;
 }
@@ -65,10 +71,12 @@ header.heading section {
 header.creating {
     background-color: rgba(224, 164, 88, 1);
 }
+
 a {
     color: #9b4dca;
     text-decoration: none;
 }
+
 div.dashboard {
     margin-top: 2rem;
 }
@@ -88,12 +96,13 @@ div.dashboard {
     width: 100%;
     padding: 0 1rem;
     box-sizing: inherit;
+    margin-bottom: inherit;
 }
+
 main {
     display: block;
 }
-main.container {
-}
+
 h1 {
     font-size: 4.6rem;
     line-height: 1.2;
@@ -102,15 +111,18 @@ h1 {
     margin-bottom: 2rem;
     margin-top: 0;
 }
+
 form {
     margin-bottom: 2.5rem;
     margin-top: 0em;
     margin-block-end: 1em;
 }
+
 div.field,
 div.actions {
     margin-bottom: 10px;
 }
+
 input[type="text"] {
     width: 100%;
     padding: 12px 20px;
@@ -126,6 +138,7 @@ label {
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
+
 .answering-list {
     padding-top: 2rem;
 }
@@ -133,18 +146,29 @@ label {
 .card .title {
     margin: 1rem 0;
 }
+
 .card a.button {
     display: block;
+
 }
+
 .card {
     background-color: #eee;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 0.4rem;
     text-align: center;
     padding: 1rem;
 }
-ul{
+
+.card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+ul {
     padding-inline-start: 0;
 }
+
 li {
     margin-bottom: 1rem;
 }
@@ -171,24 +195,122 @@ input[type="submit"] {
     white-space: nowrap;
     margin-bottom: 1rem;
 }
+.button:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover {
+    background-color: #606c76; /* The desired hover background color */
+    transition: background-color 0.3s ease; /* Optional: smooth transition for color change */
+}
 
 .answering {
     border-color: rgba(155, 77, 202, 1);
     background-color: rgba(155, 77, 202, 1);
 }
+
 .creating {
     border-color: rgba(224, 164, 88, 1);
     background-color: rgba(224, 164, 88, 1);
 }
+
 .managing {
     border-color: rgba(65, 157, 120, 1);
     background-color: rgba(65, 157, 120, 1);
 }
 
 .container {
+
     margin: 0 auto;
     max-width: 112rem;
     padding: 0 2rem;
     position: relative;
     width: 100%;
+}
+
+header.container {
+
+    max-width: 100%; /* Ensuring the header takes up a maximum width of 100% */
+    display: flex; /* Making the section container use flexbox */
+
+}
+
+header.container img {
+    max-height: 50px;
+    margin-bottom: 10px;
+}
+
+.dashboard .button {
+    margin: 20px 0;
+    flex: 1;
+}
+
+.dashboard .button.answering {
+    background-color: rgba(155, 77, 202, 1);
+    border-color: rgba(155, 77, 202, 0.8);
+}
+
+.dashboard .button.creating {
+    background-color: rgba(224, 164, 88, 1);
+    border-color: rgba(224, 164, 88, 0.8);
+}
+
+.dashboard .button.managing {
+    background-color: rgba(65, 157, 120, 1);
+    border-color: rgba(65, 157, 120, 0.8);
+}
+
+/* For devices smaller than 600px (Smartphones) */
+@media only screen and (max-width: 600px) {
+    /* Adjustments for smaller screens */
+    .container {
+        padding: 0 1rem;  /* Smaller side padding */
+    }
+
+    header.container img {
+        max-height: 40px;  /* Slightly smaller logo */
+        margin-bottom: 5px;
+    }
+
+    h1 {
+        font-size: 3rem;  /* Smaller header font */
+    }
+
+    input[type="text"] {
+        padding: 10px 15px;  /* Adjust padding for inputs */
+    }
+
+    .button, input[type="button"], input[type="reset"], input[type="submit"] {
+        font-size: 1rem;  /* Smaller font size for buttons */
+        height: 3rem;
+        line-height: 3rem;
+        padding: 0 2rem;
+    }
+}
+
+/* For devices between 600px and 1024px (Tablets) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    /* Adjustments for tablets */
+    .container {
+        padding: 0 2rem;  /* Moderate side padding */
+    }
+
+    header.container img {
+        max-height: 45px;  /* Medium logo size */
+        margin-bottom: 8px;
+    }
+
+    h1 {
+        font-size: 4rem;  /* Moderate header font */
+    }
+
+    input[type="text"] {
+        padding: 11px 18px;  /* Adjust padding for inputs */
+    }
+
+    .button, input[type="button"], input[type="reset"], input[type="submit"] {
+        font-size: 1.05rem;  /* Slightly larger font size for buttons */
+        height: 3.4rem;
+        line-height: 3.4rem;
+        padding: 0 2.5rem;
+    }
 }

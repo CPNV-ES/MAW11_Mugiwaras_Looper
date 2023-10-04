@@ -8,7 +8,7 @@
                 <li class="row">
                     <div class="column card">
                         <div class="title"><?= htmlspecialchars($exercise['title_exercise']) ?></div>
-                        <a class="button" href="<?= htmlspecialchars($exercise['url']) ?>">Take it</a>
+                        <a class="button" href="/exercises/<?= htmlspecialchars($exercise['id']) ?>">Take it</a>
                     </div>
                 </li>
             <?php endforeach; ?>

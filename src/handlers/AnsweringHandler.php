@@ -2,8 +2,8 @@
 
 namespace App\Handlers;
 
-use App\Renderer\Renderer;
-use App\controllers\exercises\ExerciseController;
+use App\Controllers\ExerciseController;
+use App\core\Renderer;
 
 class AnsweringHandler {
 
@@ -15,8 +15,4 @@ class AnsweringHandler {
         $this->exerciseController = new ExerciseController();
     }
 
-    public function handle() {
-        $menuItems = $this->exerciseController->getExercisesForView();
-        return $this->renderer->render('answering', ['exercises' => $menuItems]);
-    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\controllers\exercises;
+namespace App\Controllers;
 
 use App\Model\DatabaseConnection;
 use App\Model\Exercise;

@@ -1,6 +1,4 @@
-<?php
-/** @var string $content */
-?>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>

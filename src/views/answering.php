@@ -3,7 +3,6 @@
 ?>
 <main class="container">
     <ul class="answering-list">
-        <?php if (isset($exercises) && is_array($exercises)): ?>
             <?php foreach ($exercises as $exercise): ?>
                 <li class="row">
                     <div class="column card">
@@ -12,6 +11,5 @@
                     </div>
                 </li>
             <?php endforeach; ?>
-        <?php endif; ?>
     </ul>
 </main>

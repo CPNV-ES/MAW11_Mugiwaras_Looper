@@ -1,6 +1,6 @@
 <?php
 
-namespace App\controllers;
+namespace App\core;
 
 
 class Dispatcher
@@ -8,11 +8,13 @@ class Dispatcher
 
     private $handlers = [];
 
+    // Register a handler for a given path
     public function register($path, $handler)
     {
         $this->handlers[$path] = $handler;
     }
 
+    // Dispatch a request to the appropriate handler
     public function dispatch($uri)
     {
         if (isset($this->handlers[$uri])) {

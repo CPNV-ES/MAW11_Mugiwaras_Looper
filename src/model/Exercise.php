@@ -7,10 +7,12 @@ use App\Model\DatabaseConnection;
 class Exercise {
     private $db;
 
-    public function __construct($db) {
-        $this->db = $db;
+    public function __construct() {
+        $dbConnection = new DatabaseConnection();
+        $this->db = $dbConnection->dbConnect();
     }
 
+    //
     public function getAllTitles(){
         return $this->db->query("SELECT title_exercise FROM exercises")->fetchAll();
     }

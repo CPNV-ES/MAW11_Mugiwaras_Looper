@@ -15,11 +15,13 @@ class DatabaseConnection {
      */
     public function __construct() {
 
-        $dsn = getenv('PDO_DSN');
-        $username = getenv('PDO_USERNAME');
-        $password = getenv('PDO_PASSWORD');
+
+        $dsn = getenv('PDO_DSN',true);
+        $username = getenv('PDO_USERNAME', true);
+        $password = getenv('PDO_PASSWORD', true);
 
         if (!$dsn || !$username || !$password) {
+
             throw new \Exception("Database configuration is missing.");
         }
 

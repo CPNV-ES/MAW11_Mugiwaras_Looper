@@ -17,4 +17,7 @@ class ExerciseController {
         $data =['exercises' => $exercises];
         Renderer::render("answering", $data);
     }
+    public function new() {
+        Renderer::render("createExercise");
+    }
 }

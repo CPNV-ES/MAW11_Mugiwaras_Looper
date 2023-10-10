@@ -1,3 +1,4 @@
+<?php require 'headers/answeringHeader.php'; ?>
 <main class="container">
     <ul class="answering-list">
         <?php foreach ($exercises as $exercise): ?>

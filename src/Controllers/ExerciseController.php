@@ -20,4 +20,7 @@ class ExerciseController {
     public function new() {
         Renderer::render("createExercise");
     }
+    public function manage() {
+        Renderer::render("manageExercise");
+    }
 }

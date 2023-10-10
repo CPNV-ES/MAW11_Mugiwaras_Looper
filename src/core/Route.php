@@ -14,9 +14,11 @@ class Route {
     }
 
     private function addRoutes() {
+        // Other routes...
         $this->router->addRoute('/', 'HomeController', 'index');
         $this->router->addRoute('/exercises', 'ExerciseController', 'index');
         $this->router->addRoute('/exercises/answering', 'ExerciseController', 'answering');
+        // Add more routes as needed...
     }
 
     public function getRouter() {

@@ -231,12 +231,12 @@ header.container {
 
     max-width: 100%; /* Ensuring the header takes up a maximum width of 100% */
     display: flex; /* Making the section container use flexbox */
+    height: 5rem;
 
 }
 
 header.container img {
     max-height: 50px;
-    margin-bottom: 10px;
 }
 
 .dashboard .button {

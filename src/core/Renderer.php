@@ -3,25 +3,20 @@
 namespace App\core;
 
 class Renderer {
-    private $viewPath;
-    private $layout = 'layout';  // default layout file
-
-    // Construct the final view
-    public function __construct($viewPath) {
-        $this->viewPath = $viewPath;
-    }
-
-    // Render the view with the view and the layout
-    public function render($view, $data = []) {
-        $content = $this->getViewContent($view, $data);
-        return $this->getViewContent($this->layout, ['content' => $content]);
-    }
-
-    // Get the view to inject into the layout
-    private function getViewContent($view, $data = []) {
+    public static function render($viewPath, $data = []) {
+        // Extract data so it's available as variables in the view
         extract($data);
+
+        // Start output buffering
         ob_start();
-        include $this->viewPath . '/' . $view . '.php';
-        return ob_get_clean();
+
+        // Include the view
+        require APP_ROOT . '/src/views/' . $viewPath . '.php';
+
+        // Store the content of the view in a variable
+        $content = ob_get_clean();
+
+        // Include the layout and output everything
+        require APP_ROOT . '/src/views/layout.php';
     }
 }

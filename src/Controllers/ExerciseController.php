@@ -2,18 +2,19 @@
 
 namespace App\Controllers;
 
-use App\Model\DatabaseConnection;
+use App\core\Renderer;
 use App\Model\Exercise;
 
 class ExerciseController {
     private $exerciseModel;
 
     public function __construct() {
-        $dbConnection = (new DatabaseConnection())->dbConnect();
-        $this->exerciseModel = new Exercise($dbConnection);
-    }
 
-    public function getExercisesForView() {
-        return $this->exerciseModel->getAllTitles();
+        $this->model = new Exercise();
+    }
+    public function answering() {
+        $exercises = $this->model->getAllExercisesTitle();
+        $data =['exercises' => $exercises];
+        Renderer::render("answering", $data);
     }
 }

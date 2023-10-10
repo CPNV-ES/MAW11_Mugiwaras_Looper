@@ -7,9 +7,9 @@
     An awesome copy of looper !
     <br />
     <br />
-    <a href="https://github.com/CPNV-ES/MAW11_Mugiwaras/issues">Report Bug</a>
+    <a href="https://github.com/CPNV-ES/MAW11_Mugiwaras_Looper/issues/new/choose">Report Bug</a>
     ·
-    <a href="https://github.com/CPNV-ES/MAW11_Mugiwaras/issues">Request Feature</a>
+    <a href="https://github.com/CPNV-ES/MAW11_Mugiwaras_Looper/issues/new/choose">Request Feature</a>
   </p>
 </div>
 

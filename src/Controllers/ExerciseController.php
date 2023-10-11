@@ -13,8 +13,10 @@ class ExerciseController {
         $this->model = new Exercise();
     }
     public function answering() {
-        $exercises = $this->model->getAllExercisesTitle();
-        $data =['exercises' => $exercises];
+
+        // Call the function getAllExercises() in order to send the titles and ids of the exercises to the view
+        $exercises = $this->model->getAllExercises();
+        $data = ['exercises' => $exercises];
         Renderer::render("answering", $data);
     }
     public function new() {

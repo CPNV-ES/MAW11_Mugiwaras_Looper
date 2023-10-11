@@ -17,7 +17,7 @@ class Router {
         $this->addRoute('/exercises', 'ExerciseController', 'index');
         $this->addRoute('/exercises/answering', 'ExerciseController', 'answering');
         $this->addRoute('/exercises/new', 'ExerciseController', 'new');
-        $this->addRoute('/exercises/manage', 'ExerciseController', 'manage'); // I assume you wanted /exercises/manage here
+        $this->addRoute('/exercises', 'ExerciseController', 'manage'); // I assume you wanted /exercises/manage here
         // Add more routes as needed...
     }
     public function addRoute($pattern, $controller, $action) {

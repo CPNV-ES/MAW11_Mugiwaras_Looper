@@ -8,16 +8,14 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body>
+<body class="<?= $currentPage ?? '' ?>">
 
-<header class="container">
-    <section class="container">
-        <a href="/"><img src="/img/logo.png" alt="Looper"></a>
-    </section>
-</header>
 
-<!-- Main content injection -->
-<?= $content ?? '' ?>
+
+    <!-- Dynamic header injection -->
+    <?= $dynamicHeader ?? '' ?>
+    <!-- Main content injection -->
+    <?= $content ?? '' ?>
 
 </body>
 

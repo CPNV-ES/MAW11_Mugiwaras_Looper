@@ -5,7 +5,7 @@
             <li class="row">
                 <div class="column card">
                     <div class="title"><?= htmlspecialchars($exercise['title_exercise']) ?></div>
-                    <a class="button" href="/exercises/<?= htmlspecialchars($exercise['id']) ?>/fulfillments/new">Take it</a>
+                    <a class="button" href="/exercises/<?= htmlspecialchars($exercise['id_exercise']) ?>/fulfillments/new">Take it</a>
                 </div>
             </li>
         <?php endforeach; ?>

@@ -4,10 +4,9 @@ use App\core\Route;
 
 define('APP_ROOT', dirname(__DIR__));
 
-require_once APP_ROOT . '/vendor/autoload.php';
+require APP_ROOT . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(APP_ROOT);
-$dotenv->load();
+Dotenv\Dotenv::createUnsafeImmutable(APP_ROOT)->load();
 
 $route = new Route();
 $router = $route->getRouter();

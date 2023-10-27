@@ -3,7 +3,7 @@
 <main class="container">
     <h1>New Exercise</h1>
 
-    <form action="/exercises/new/fulfillment" accept-charset="UTF-8" method="post">
+    <form action="/exercises/create" accept-charset="UTF-8" method="post">
 
 
         <div class="field">

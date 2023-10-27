@@ -25,4 +25,9 @@ class ExerciseController {
     {
         Renderer::render("manageExercise");
     }
+    public function fulfillment(): void
+    {
+        
+        Renderer::render("");
+    }
 }

@@ -25,9 +25,23 @@ class ExerciseController {
     {
         Renderer::render("manageExercise");
     }
-    public function fulfillment(): void
-    {
-        
-        Renderer::render("");
+    public function create() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['exercise']['title'];
+
+            // Add the new exercise and get the ID
+            $exerciseId = $this->model->addExercise($title);
+
+            if ($exerciseId) {
+                // Redirect to the newly created exercise page
+                header("Location: /exercises/$exerciseId/fields");
+                exit;
+            } else {
+                // Handle the case where exercise creation failed
+                // You might want to display an error message
+            }
+        } else {
+            Renderer::render("newFields");
+        }
     }
 }

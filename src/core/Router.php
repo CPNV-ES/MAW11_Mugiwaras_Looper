@@ -18,6 +18,7 @@ class Router {
         $this->addRoute('/exercises', 'ExerciseController', 'index');
         $this->addRoute('/exercises/answering', 'ExerciseController', 'answering');
         $this->addRoute('/exercises/new', 'ExerciseController', 'new');
+        $this->addRoute('/exercises/new/fulfillment', 'ExerciseController','fulfillment');
         $this->addRoute('/exercises', 'ExerciseController', 'manage');
         // Add more routes as needed...
     }

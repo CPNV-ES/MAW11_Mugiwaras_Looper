@@ -18,5 +18,16 @@ class Exercise
         // Get the exercises from the database (titles and ids)
         return $this->db->query("SELECT id_exercise, title_exercise FROM exercises")->fetchAll();
     }
+    function addExercise(string $title): ?int
+    {
+        // Add the exercise to the database
+        $statement = $this->db->prepare("INSERT INTO exercises (title_exercise) VALUES (:title)");
+
+        if ($statement->execute(['title' => $title])) {
+            return (int) $this->db->lastInsertId();  // Return the last inserted ID
+        }
+
+        return null;  // Return null if the insertion failed
+    }
 
 }

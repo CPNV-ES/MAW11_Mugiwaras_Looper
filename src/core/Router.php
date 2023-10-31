@@ -5,43 +5,29 @@ namespace App\core;
 use App\Controllers\ErrorController;
 
 
-class Router {
-    private array $routes = [];
-
-    public function __construct() {
-        $this->addDefaultRoutes();
-    }
-
-    private function addDefaultRoutes(): void
-    {
-        $this->addRoute('/', 'HomeController', 'index');
-        $this->addRoute('/exercises', 'ExerciseController', 'index');
-        $this->addRoute('/exercises/answering', 'ExerciseController', 'answering');
-        $this->addRoute('/exercises/new', 'ExerciseController', 'new');
-        $this->addRoute('/exercises', 'ExerciseController', 'manage');
-        // Add more routes as needed...
-    }
-    public function addRoute($pattern, $controller, $action): void
-    {
-        $this->routes[$pattern] = ['controller' => $controller, 'action' => $action];
-    }
+class Router
+{
+    // Dispatch the request to the controller and call the appropriate action
     public function dispatch($url): void
     {
-        foreach ($this->routes as $pattern => $route) {
-
-            // Checking if the pattern matches the URL
-            if (preg_match("~^$pattern$~", $url, $matches)) {
-                array_shift($matches);
-
-                // If there is a match, call the controller and action
-                $controllerClass = "App\\Controllers\\" . $route['controller'];
-                $controller = new $controllerClass();
-                call_user_func_array([$controller, $route['action']], $matches);
-                return;
-            }
+        // Split the URL into segments removing slashes
+        $segments = explode('/', trim($url, '/'));
+        // Determine the controller based on the segments or giving a default controller
+        $controllerName = isset($segments[0]) && $segments[0] ? ucfirst($segments[0]) . 'Controller' : 'HomeController';
+        // Determine the action to execute from the controller or give one by default
+        $actionName = isset($segments[1]) && $segments[1] ? $segments[1] : 'index';
+        // The remaining segments, if any, are treated as parameters for the action.
+        $params = array_slice($segments, 2);
+        // Check if the controller and the method exist
+        $controllerClass = "App\\Controllers\\" . $controllerName;
+        // Checking and creating the controller and call the action
+        if (class_exists($controllerClass) && method_exists($controllerClass, $actionName)) {
+            $controller = new $controllerClass();
+            call_user_func_array([$controller, $actionName], $params);
+        } else {
+            // If there is no matching controller or action, call the error controller
+            $errorController = new ErrorController();
+            $errorController->notFound();
         }
-        // If there is no match, call the error controller
-        $errorController = new ErrorController();
-        $errorController->notFound();
     }
 }

@@ -4,11 +4,14 @@ namespace App\Controllers;
 
 use App\core\Renderer;
 use App\Model\Exercise;
-
-class ExerciseController {
+class ExercisesController {
 
     public function __construct() {
         $this->model = new Exercise();
+    }
+    public function index(): void
+    {
+        Renderer::render("manageExercise");
     }
     public function answering(): void
     {
@@ -21,6 +24,7 @@ class ExerciseController {
     {
         Renderer::render("createExercise");
     }
+
     public function manage(): void
     {
         Renderer::render("manageExercise");
@@ -28,7 +32,6 @@ class ExerciseController {
     public function create() {
         // Get the title of the new exercise from the form
         $title = $_POST['exercise']['title'] ?? '';
-
         // Attempt to add the new exercise and get the ID
         $exerciseId = $this->model->addExercise($title);
         // Exercise creation succeeded, we redirect to the new exercise's page.

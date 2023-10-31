@@ -5,10 +5,14 @@ namespace App\Controllers;
 use App\core\Renderer;
 use App\Model\Exercise;
 
-class ExerciseController {
+class ExercisesController {
 
     public function __construct() {
         $this->model = new Exercise();
+    }
+    public function index(): void
+    {
+        Renderer::render("manageExercise");
     }
     public function answering(): void
     {
@@ -20,9 +24,5 @@ class ExerciseController {
     public function new(): void
     {
         Renderer::render("createExercise");
-    }
-    public function manage(): void
-    {
-        Renderer::render("manageExercise");
     }
 }

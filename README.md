@@ -51,6 +51,7 @@ This is a copy of looper useing the framework that we are developing beside. It 
 
 > Use your favourite package manager to install PHP 8.2.9 (NTS). Or follow this [link](https://www.php.net/manual/install.php) that redirects to the official PHP download page.
 
+> You have to uncomment "extension=pdo_mysql" in your php init file
 #### composer
 
 > Follow this [link](https://getcomposer.org/download/) that redirects to the official composer download page.

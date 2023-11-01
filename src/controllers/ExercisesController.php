@@ -3,7 +3,7 @@
 namespace App\controllers;
 
 use App\core\Renderer;
-use App\Model\Exercise;
+use App\models\Exercise;
 class ExercisesController {
 
     public function __construct() {

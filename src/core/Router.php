@@ -2,7 +2,7 @@
 
 namespace App\core;
 
-use App\Controllers\ErrorController;
+use App\controllers\ErrorController;
 
 
 

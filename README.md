@@ -40,8 +40,10 @@ This is a copy of looper useing the framework that we are developing beside. It 
 
 ## Prerequisites
 
-* PHP 8.2.9 (NTS)
+* PHP 8.2.12 (TS)
 * composer 2.6.2
+* SQL 8.0.31
+* GIT 2.42.0
 
 ### How to install the requirements
 

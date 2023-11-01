@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace App\models;
 
-use App\Model\DatabaseConnection;
+use App\models\DatabaseConnection;
 
 class Exercise
 {

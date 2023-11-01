@@ -4,8 +4,6 @@ namespace App\core;
 
 use App\controllers\ErrorController;
 
-
-
 class Router {
      public function dispatch($url): void
     {

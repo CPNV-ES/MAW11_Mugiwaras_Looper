@@ -29,7 +29,8 @@ class ExercisesController {
     {
         Renderer::render("manageExercise");
     }
-    public function create() {
+    public function create(): void
+    {
         // Get the title of the new exercise from the form
         $title = $_POST['exercise']['title'] ?? '';
         // Attempt to add the new exercise and get the ID

@@ -13,12 +13,14 @@ class Exercise
     {
         $this->db = DatabaseConnection::dbConnect();
     }
-    function getAllExercises(): array|false
+
+    public function getAllExercises(): array|false
     {
         // Get the exercises from the database (titles and ids)
         return $this->db->query("SELECT id_exercise, title_exercise FROM exercises")->fetchAll();
     }
-    function addExercise(string $title): ?int
+
+    public function addExercise(string $title): ?int
     {
         // Add the exercise to the database
         $statement = $this->db->prepare("INSERT INTO exercises (title_exercise) VALUES (:title)");

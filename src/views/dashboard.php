@@ -10,7 +10,7 @@ $dynamicHeader = '
         <p>
             <img src="/img/logo.png" alt="Logo">
         </p>
-        <h1>Exercice
+        <h1>Exercise
             <br>
             Looper
         </h1>

@@ -37,9 +37,8 @@ class ExercisesController {
         $exerciseId = $this->model->addExercise($title);
         // Exercise creation succeeded, we redirect to the new exercise's page.
         header("Location: /exercises/$exerciseId/fields");
-        exit;
     }
-    public function newFields(): void
+    public function fields(): void
     {
         Renderer::render("newFields");
     }

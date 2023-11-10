@@ -59,6 +59,11 @@ header.heading {
     z-index: 1;
 }
 
+header.heading.results {
+    background-color: rgba(65, 157, 120, 1);
+}
+
+
 header.heading .exercise-label {
     margin: auto auto auto 2rem;
 }

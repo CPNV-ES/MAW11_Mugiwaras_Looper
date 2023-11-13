@@ -91,9 +91,7 @@ div.dashboard {
     flex-direction: row;
     margin-left: -1rem;
     width: calc(100% + 2rem);
-    text-align: center;
 }
-
 .row .column {
     display: block;
     margin-left: 0;
@@ -102,6 +100,18 @@ div.dashboard {
     padding: 0 1rem;
     box-sizing: inherit;
     margin-bottom: inherit;
+}
+.column {
+    /* Add some margin around each column for spacing */
+    margin: 1rem;
+    padding: 1rem;
+    box-sizing: border-box; /* This ensures that padding is included in the width */
+}
+
+.records {
+    margin-top: 1rem; /* Adjust as needed */
+    width: 100%; /* Ensure tables take full width of the column */
+    box-sizing: border-box; /* Include padding and borders in the element's total width and height */
 }
 
 main {
@@ -221,6 +231,11 @@ input[type="submit"]:hover {
 .managing {
     border-color: rgba(65, 157, 120, 1);
     background-color: rgba(65, 157, 120, 1);
+}
+.results{
+    display: flex;
+    flex-direction: row;
+    width: calc(100% + 2.0rem);
 }
 
 .container {

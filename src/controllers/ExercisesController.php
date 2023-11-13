@@ -6,12 +6,15 @@ use App\core\Renderer;
 use App\models\Exercise;
 class ExercisesController {
 
+    private Exercise $model;
+
     public function __construct() {
         $this->model = new Exercise();
     }
     public function index(): void
     {
-        Renderer::render("manageExercise");
+        $categorizedExercises = $this->model->getCategorizedExercises();
+        Renderer::render("manageExercise", ['categorizedExercises' => $categorizedExercises]);
     }
     public function answering(): void
     {
@@ -24,11 +27,6 @@ class ExercisesController {
     {
         Renderer::render("createExercise");
     }
-
-    public function manage(): void
-    {
-        Renderer::render("manageExercise");
-    }
     public function create(): void
     {
         // Get the title of the new exercise from the form
@@ -40,6 +38,7 @@ class ExercisesController {
     }
     public function fields(): void
     {
+
         Renderer::render("newFields");
     }
 }

@@ -6,6 +6,8 @@ use App\core\Renderer;
 use App\models\Exercise;
 class ExercisesController {
 
+    private Exercise $model;
+
     public function __construct() {
         $this->model = new Exercise();
     }

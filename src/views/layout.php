@@ -1,22 +1,13 @@
+<?php require 'headers/layoutHead.php'; ?>
 <!DOCTYPE html>
-<html lang="fr">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?? "Sans titre" ?></title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-
-<body class="<?= $currentPage ?? '' ?>">
-
-
-
-    <!-- Dynamic header injection -->
-    <?= $dynamicHeader ?? '' ?>
-    <!-- Main content injection -->
-    <?= $content ?? '' ?>
-
-</body>
-
+    <title>Exercise Looper</title>
+    <?= $layoutHead ?? '' ?>
+    <script src="/js/manageExercises.js"></script>
+ </head>
+    <body>
+        <?= $dynamicHeader ?? '' ?>
+        <?= $content ?? '' ?>
+    </body>
 </html>

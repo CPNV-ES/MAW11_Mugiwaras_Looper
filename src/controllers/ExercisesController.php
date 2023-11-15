@@ -42,6 +42,9 @@ class ExercisesController {
     }
     public function fields(): void
     {
+        $exercise = $this->model->getLastInsertedExercise();
+        $fields = $this->model->getFields($exercise[0]['id_exercise']);
+        $data = ["exercise" => $exercise[0], "fields" => $fields];
         Renderer::render("newFields",$data);
     }
 }

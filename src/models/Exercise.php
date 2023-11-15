@@ -35,5 +35,9 @@ class Exercise
 
         return null;  // Return null if the insertion failed
     }
-
+    public function addField($label, $fieldKind, $exercise)
+    {
+        $statement = $this->db->prepare("INSERT INTO fields (label, value_kind, id_exercise) VALUES (:label, :fieldKind, :exercise)");
+        $statement->execute(['label'=> $label, 'fieldKind'=>$fieldKind, 'exercise'=> $exercise]);
+    }
 }

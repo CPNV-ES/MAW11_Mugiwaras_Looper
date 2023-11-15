@@ -19,11 +19,17 @@ class Exercise
         return $this->db->query("SELECT * from exercises order by id_exercise desc limit 1")->fetchAll();
     }
 
-    public function getAllExercises(): array
+    public function getAllExercisesAnswering(): array|false
     {
         // Get the exercises from the database (titles and ids)
         return $this->db->query("SELECT id_exercise, title_exercise FROM exercises WHERE status = 'Answering'")->fetchAll();
     }
+    public function getAllExercises(): array|false
+    {
+        // Get the exercises from the database (titles and ids)
+        return $this->db->query("SELECT id_exercise, title_exercise, status FROM exercises WHERE status IN ('Building', 'Answering', 'Closed')")->fetchAll();
+    }
+
     public function addExercise(string $title): ?int
     {
         // Add the exercise to the database
@@ -35,12 +41,40 @@ class Exercise
 
         return null;  // Return null if the insertion failed
     }
+
     public function addField($label, $fieldKind, $exercise)
     {
         $statement = $this->db->prepare("INSERT INTO fields (label, value_kind, id_exercise) VALUES (:label, :fieldKind, :exercise)");
         $statement->execute(['label'=> $label, 'fieldKind'=>$fieldKind, 'exercise'=> $exercise]);
     }
-    public function getFields($exerciseId){
+
+    public function getFields($exerciseId)
+    {
         return $this->db->query("SELECT id_field, label, value_kind from fields WHERE id_exercise = $exerciseId")->fetchAll();
+    }
+
+    public function getCategorizedExercises(): array
+    {
+        // Fetch all exercises
+        $allExercises = $this->getAllExercises();
+
+        // Initialize arrays for each status category
+        $categorizedExercises = [
+            'Building' => [],
+            'Answering' => [],
+            'Closed' => []
+        ];
+
+        // Categorize exercises based on their status
+        foreach ($allExercises as $exercise) {
+            $categorizedExercises[$exercise['status']][] = $exercise;
+        }
+        return $categorizedExercises;
+    }
+
+    public function updateExerciseStatus($exerciseId, $newStatus): void
+    {
+        $statement = $this->db->prepare("UPDATE exercises SET status = :newStatus WHERE id_exercise = :exerciseId");
+        $statement->execute(['newStatus' => $newStatus, 'exerciseId' => $exerciseId]);
     }
 }

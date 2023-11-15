@@ -20,6 +20,11 @@ class Exercise
         return $this->db->query("SELECT id_exercise, title_exercise FROM exercises")->fetchAll();
     }
 
+    public function getAllExercises(): array
+    {
+        // Get the exercises from the database (titles and ids)
+        return $this->db->query("SELECT id_exercise, title_exercise FROM exercises WHERE status = 'Answering'")->fetchAll();
+    }
     public function addExercise(string $title): ?int
     {
         // Add the exercise to the database

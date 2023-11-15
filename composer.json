@@ -6,6 +6,13 @@
         }
     },
     "require": {
-        "vlucas/phpdotenv": "^5.5"
-    }
+        "vlucas/phpdotenv": "^5.5",
+        "mugiwaras/framework": "dev-release"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/CPNV-ES/MAW11_Mugiwaras_Framework"
+        }
+    ]
 }

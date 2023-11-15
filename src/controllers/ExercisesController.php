@@ -42,6 +42,6 @@ class ExercisesController {
     }
     public function fields(): void
     {
-        Renderer::render("newFields");
+        Renderer::render("newFields",$data);
     }
 }

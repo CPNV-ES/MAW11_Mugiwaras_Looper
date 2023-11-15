@@ -54,7 +54,9 @@ class Exercise
         }
         return $categorizedExercises;
     }
-
-
-
+    public function updateExerciseStatus($exerciseId, $newStatus): void
+    {
+        $statement = $this->db->prepare("UPDATE exercises SET status = :newStatus WHERE id_exercise = :exerciseId");
+        $statement->execute(['newStatus' => $newStatus, 'exerciseId' => $exerciseId]);
+    }
 }

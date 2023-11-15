@@ -27,7 +27,7 @@ class Exercise
     public function addExercise(string $title): ?int
     {
         // Add the exercise to the database
-        $statement = $this->db->prepare("INSERT INTO exercises (title_exercise) VALUES (:title)");
+        $statement = $this->db->prepare("INSERT INTO exercises (title_exercise, status) VALUES (:title, 'Building')");
 
         if ($statement->execute(['title' => $title])) {
             return (int) $this->db->lastInsertId();  // Return the last inserted ID

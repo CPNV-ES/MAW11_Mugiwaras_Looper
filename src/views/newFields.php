@@ -1,10 +1,24 @@
-<?php require 'headers/createExerciseHeader.php'; ?>
-<div class="container dashboard">
-    Future new field exercise page
-</div>        <a href="/"><img src="/img/logo.png"  alt=""/></a>
+<header class="heading creating">
+    <section class="container">
+        <a href="/"><img src="/img/logo.png"  alt=""/></a>
         <span class="exercise-label">exercise : <strong class="bolded"><?= $data['exercise']['title_exercise'] ?></strong></span>
     </section>
 </header>
+<body>
+<main class="container">
+    <div class="row">
+        <section class="column">
+            <h1>Fields</h1>
+            <table class="records">
+                <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Value kind</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
                 <?php foreach ($data['fields'] as $field): ?>
                     <tr>
                         <td><?= $field['label']?></td>
@@ -15,6 +29,12 @@
                         </td>
                     </tr>
                 <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <a data-confirm="Are you sure? You won't be able to further edit this exercise" class="button" rel="nofollow" data-method="put" href="/exercises/<?= $data[0] ?>?exercise[status]=answering"><i class="fa fa-comment"></i> Complete and be ready for answers</a>
+
+        </section>
         <section class="column">
             <h1>New Field</h1>
             <form action="/exercises/<?= $data['exercise']['id_exercise'] ?>/fields" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="WXvuF6WS+XWi18dQXkfL/GlaDGgWaE4YdsOF+s5KyAIy8hkoeNcCe/v8rwWvz3jGf2DXJYwJuS765IRkGe96Pw==">
@@ -36,3 +56,7 @@
                 </div>
             </form>
         </section>
+    </div>
+</main>
+
+</body>

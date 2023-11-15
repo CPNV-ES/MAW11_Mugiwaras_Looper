@@ -14,10 +14,9 @@ class Exercise
         $this->db = DatabaseConnection::dbConnect();
     }
 
-    public function getAllExercises(): array|false
+    public function getLastInsertedExercise(): array
     {
-        // Get the exercises from the database (titles and ids)
-        return $this->db->query("SELECT id_exercise, title_exercise FROM exercises")->fetchAll();
+        return $this->db->query("SELECT * from exercises order by id_exercise desc limit 1")->fetchAll();
     }
 
     public function getAllExercises(): array

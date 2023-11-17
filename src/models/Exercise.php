@@ -14,6 +14,11 @@ class Exercise
         $this->db = DatabaseConnection::dbConnect();
     }
 
+    public function getLastInsertedExercise(): array
+    {
+        return $this->db->query("SELECT * from exercises order by id_exercise desc limit 1")->fetchAll();
+    }
+
     public function getAllExercisesAnswering(): array|false
     {
         // Get the exercises from the database (titles and ids)
@@ -24,7 +29,6 @@ class Exercise
         // Get the exercises from the database (titles and ids)
         return $this->db->query("SELECT id_exercise, title_exercise, status FROM exercises WHERE status IN ('Building', 'Answering', 'Closed')")->fetchAll();
     }
-
 
     public function addExercise(string $title): ?int
     {
@@ -37,7 +41,20 @@ class Exercise
 
         return null;  // Return null if the insertion failed
     }
-    public function getCategorizedExercises(): array {
+
+    public function addField($label, $fieldKind, $exercise)
+    {
+        $statement = $this->db->prepare("INSERT INTO fields (label, value_kind, id_exercise) VALUES (:label, :fieldKind, :exercise)");
+        $statement->execute(['label'=> $label, 'fieldKind'=>$fieldKind, 'exercise'=> $exercise]);
+    }
+
+    public function getFields($exerciseId)
+    {
+        return $this->db->query("SELECT id_field, label, value_kind from fields WHERE id_exercise = $exerciseId")->fetchAll();
+    }
+
+    public function getCategorizedExercises(): array
+    {
         // Fetch all exercises
         $allExercises = $this->getAllExercises();
 
@@ -54,6 +71,7 @@ class Exercise
         }
         return $categorizedExercises;
     }
+
     public function updateExerciseStatus($exerciseId, $newStatus): void
     {
         $statement = $this->db->prepare("UPDATE exercises SET status = :newStatus WHERE id_exercise = :exerciseId");

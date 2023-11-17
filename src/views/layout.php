@@ -5,9 +5,9 @@
     <title>Exercise Looper</title>
     <?= $layoutHead ?? '' ?>
     <script src="/js/manageExercises.js"></script>
- </head>
-    <body>
-        <?= $dynamicHeader ?? '' ?>
-        <?= $content ?? '' ?>
-    </body>
+</head>
+<body>
+<?= $dynamicHeader ?? '' ?>
+<?= $content ?? '' ?>
+</body>
 </html>

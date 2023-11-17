@@ -38,7 +38,17 @@ class ExercisesController {
     }
     public function fields(): void
     {
-        Renderer::render("newFields");
+        $label = $_POST['field']['label'] ?? '';
+        $fieldKind = $_POST['field']['value_kind'] ?? '';
+        $exercise = $this->model->getLastInsertedExercise();
+
+        if(!empty($fieldKind)){
+            $this->model->addField($label, $fieldKind, $exercise[0]['id_exercise']);
+        }
+        $fields = $this->model->getFields($exercise[0]['id_exercise']);
+
+        $data = ["exercise" => $exercise[0], "fields" => $fields];
+        Renderer::render("newFields",$data);
     }
     public function updateStatus(): void
     {

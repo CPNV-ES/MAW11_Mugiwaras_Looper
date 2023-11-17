@@ -1,4 +1,5 @@
 <?php
+
 $dynamicHeader =
     '<header class="dashboard">
   <section class="container">

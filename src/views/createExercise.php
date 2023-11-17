@@ -1,4 +1,5 @@
-<?php require 'headers/createExerciseHeader.php'; ?>
+<?php
+require 'headers/createExerciseHeader.php'; ?>
 <body>
 <main class="container">
     <h1>New Exercise</h1>
@@ -8,11 +9,11 @@
 
         <div class="field">
             <label for="exercise_title">Title</label>
-            <input type="text" name="exercise[title]" id="exercise_title" />
+            <input type="text" name="exercise[title]" id="exercise_title"/>
         </div>
 
         <div class="actions">
-            <input type="submit" name="commit" value="Create Exercise" data-disable-with="Create Exercise" />
+            <input type="submit" name="commit" value="Create Exercise" data-disable-with="Create Exercise"/>
         </div>
     </form>
 </main>

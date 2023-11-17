@@ -14,6 +14,11 @@ class Exercise
         $this->db = DatabaseConnection::dbConnect();
     }
 
+    public function getLastInsertedExercise(): array
+    {
+        return $this->db->query("SELECT * from exercises order by id_exercise desc limit 1")->fetchAll();
+    }
+
     public function getAllExercisesAnswering(): array|false
     {
         // Get the exercises from the database (titles and ids)
@@ -30,7 +35,6 @@ class Exercise
         )->fetchAll();
     }
 
-
     public function addExercise(string $title): ?int
     {
         // Add the exercise to the database
@@ -41,6 +45,17 @@ class Exercise
         }
 
         return null;  // Return null if the insertion failed
+    }
+
+    public function addField($label, $fieldKind, $exercise)
+    {
+        $statement = $this->db->prepare("INSERT INTO fields (label, value_kind, id_exercise) VALUES (:label, :fieldKind, :exercise)");
+        $statement->execute(['label'=> $label, 'fieldKind'=>$fieldKind, 'exercise'=> $exercise]);
+    }
+
+    public function getFields($exerciseId)
+    {
+        return $this->db->query("SELECT id_field, label, value_kind from fields WHERE id_exercise = $exerciseId")->fetchAll();
     }
 
     public function getCategorizedExercises(): array

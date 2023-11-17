@@ -4,7 +4,8 @@ namespace App\core;
 
 use App\controllers\ErrorController;
 
-class Router {
+class Router
+{
     public function dispatch($url): void
     {
         // Split the URL into segments removing slashes

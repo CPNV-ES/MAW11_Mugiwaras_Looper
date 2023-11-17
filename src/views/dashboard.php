@@ -1,4 +1,5 @@
-<?php require 'headers/dashboardHeader.php'; ?>
+<?php
+require 'headers/dashboardHeader.php'; ?>
 <div class="container dashboard">
     <section class="row">
         <div class="column">

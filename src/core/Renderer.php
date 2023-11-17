@@ -2,7 +2,8 @@
 
 namespace App\core;
 
-class Renderer {
+class Renderer
+{
     public static function render($viewPath, $data = []): void
     {
         // Extract data so it's available as variables in the view

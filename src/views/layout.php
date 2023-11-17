@@ -1,4 +1,5 @@
-<?php require 'headers/layoutHead.php'; ?>
+<?php
+require 'headers/layoutHead.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>

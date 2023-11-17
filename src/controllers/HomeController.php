@@ -5,7 +5,8 @@ namespace App\controllers;
 use App\core\Renderer;
 
 
-class HomeController {
+class HomeController
+{
     public function index(): void
     {
         $dynamicHeader = [

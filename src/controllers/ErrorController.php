@@ -2,9 +2,10 @@
 
 namespace App\controllers;
 
-class ErrorController {
+class ErrorController
+{
     public function notFound(): void
     {
-        require APP_ROOT.'/src/views/error404.php';
+        require APP_ROOT . '/src/views/error404.php';
     }
 }

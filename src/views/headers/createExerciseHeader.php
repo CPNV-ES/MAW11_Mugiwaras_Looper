@@ -1,4 +1,5 @@
 <?php
+
 $dynamicHeader = '
 <header class="heading managing">
     <section class="container">

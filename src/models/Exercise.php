@@ -17,12 +17,17 @@ class Exercise
     public function getAllExercisesAnswering(): array|false
     {
         // Get the exercises from the database (titles and ids)
-        return $this->db->query("SELECT id_exercise, title_exercise FROM exercises WHERE status = 'Answering'")->fetchAll();
+        return $this->db->query(
+            "SELECT id_exercise, title_exercise FROM exercises WHERE status = 'Answering'"
+        )->fetchAll();
     }
+
     public function getAllExercises(): array|false
     {
         // Get the exercises from the database (titles and ids)
-        return $this->db->query("SELECT id_exercise, title_exercise, status FROM exercises WHERE status IN ('Building', 'Answering', 'Closed')")->fetchAll();
+        return $this->db->query(
+            "SELECT id_exercise, title_exercise, status FROM exercises WHERE status IN ('Building', 'Answering', 'Closed')"
+        )->fetchAll();
     }
 
 
@@ -32,12 +37,14 @@ class Exercise
         $statement = $this->db->prepare("INSERT INTO exercises (title_exercise, status) VALUES (:title, 'Building')");
 
         if ($statement->execute(['title' => $title])) {
-            return (int) $this->db->lastInsertId();  // Return the last inserted ID
+            return (int)$this->db->lastInsertId();  // Return the last inserted ID
         }
 
         return null;  // Return null if the insertion failed
     }
-    public function getCategorizedExercises(): array {
+
+    public function getCategorizedExercises(): array
+    {
         // Fetch all exercises
         $allExercises = $this->getAllExercises();
 
@@ -54,6 +61,7 @@ class Exercise
         }
         return $categorizedExercises;
     }
+
     public function updateExerciseStatus($exerciseId, $newStatus): void
     {
         $statement = $this->db->prepare("UPDATE exercises SET status = :newStatus WHERE id_exercise = :exerciseId");

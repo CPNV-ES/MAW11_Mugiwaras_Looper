@@ -47,7 +47,7 @@ class ExercisesController
 
     }
 
-    private function fields()
+    private function fieldsOld()
     {
         $label = $_POST['field']['label'] ?? '';
         $fieldKind = $_POST['field']['value_kind'] ?? '';
@@ -60,12 +60,12 @@ class ExercisesController
 
         return ["exercise" => $exercise[0], "fields" => $fields];
     }
-    public function createFields(): void{
+    public function createFieldsOld(): void{
         $data = $this->fields();
         Renderer::render("newFields", $data);
     }
 
-    public function fulfillments(): void{
+    public function fulfillmentsOld(): void{
         $data = $this->fields();
         Renderer::render("fulfillments", $data);
     }

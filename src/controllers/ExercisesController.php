@@ -34,17 +34,20 @@ class ExercisesController
         Renderer::render("createExercise");
     }
 
-    public function create(): void
+    public function create(array $data): void
     {
         // Get the title of the new exercise from the form
-        $title = $_POST['exercise']['title'] ?? '';
+        $title = $data['exerciseTitle'] ?? '';
+        var_dump($data);
+        die();
         // Attempt to add the new exercise and get the ID
         $exerciseId = $this->model->addExercise($title);
         // Exercise creation succeeded, we redirect to the new exercise's page.
         header("Location: /exercises/$exerciseId/fields");
+
     }
 
-    public function fields(): void
+    private function fields()
     {
         $label = $_POST['field']['label'] ?? '';
         $fieldKind = $_POST['field']['value_kind'] ?? '';
@@ -55,8 +58,16 @@ class ExercisesController
         }
         $fields = $this->model->getFields($exercise[0]['id_exercise']);
 
-        $data = ["exercise" => $exercise[0], "fields" => $fields];
-        Renderer::render("newFields",$data);
+        return ["exercise" => $exercise[0], "fields" => $fields];
+    }
+    public function createFields(): void{
+        $data = $this->fields();
+        Renderer::render("newFields", $data);
+    }
+
+    public function fulfillments(): void{
+        $data = $this->fields();
+        Renderer::render("fulfillments", $data);
     }
 
     public function updateStatus(): void

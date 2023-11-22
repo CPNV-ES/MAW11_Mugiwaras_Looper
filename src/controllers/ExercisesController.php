@@ -15,7 +15,7 @@ class ExercisesController
         $this->model = new Exercise();
     }
 
-    public function index(): void
+    public function manage(): void
     {
         $categorizedExercises = $this->model->getCategorizedExercises();
         Renderer::render("manageExercise", ['categorizedExercises' => $categorizedExercises]);
@@ -38,8 +38,6 @@ class ExercisesController
     {
         // Get the title of the new exercise from the form
         $title = $data['exerciseTitle'] ?? '';
-        var_dump($data);
-        die();
         // Attempt to add the new exercise and get the ID
         $exerciseId = $this->model->addExercise($title);
         // Exercise creation succeeded, we redirect to the new exercise's page.
@@ -47,15 +45,13 @@ class ExercisesController
 
     }
 
-    private function fieldsOld()
-    {
-        $label = $_POST['field']['label'] ?? '';
-        $fieldKind = $_POST['field']['value_kind'] ?? '';
-        $exercise = $this->model->getLastInsertedExercise();
 
-        if(!empty($fieldKind)){
-            $this->model->addField($label, $fieldKind, $exercise[0]['id_exercise']);
-        }
+    //private function fieldsOld()
+    public function fields(array $uriParams)
+
+    {
+
+        $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
         $fields = $this->model->getFields($exercise[0]['id_exercise']);
 
         return ["exercise" => $exercise[0], "fields" => $fields];
@@ -68,6 +64,15 @@ class ExercisesController
     public function fulfillmentsOld(): void{
         $data = $this->fields();
         Renderer::render("fulfillments", $data);
+    }
+    public function createField(array $data): void
+    {
+        $label = $data['fieldLabel'] ?? '';
+        $fieldKind = $data['fieldKind'] ?? '';
+
+        $this->model->addField($label, $fieldKind, $data['exerciseId']);
+
+        header("Location: /exercises/".$data['exerciseId']."/fields");
     }
 
     public function updateStatus(): void

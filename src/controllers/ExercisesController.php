@@ -44,27 +44,16 @@ class ExercisesController
         header("Location: /exercises/$exerciseId/fields");
 
     }
-
-
-    //private function fieldsOld()
+    
     public function fields(array $uriParams)
-
     {
-
         $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
         $fields = $this->model->getFields($exercise[0]['id_exercise']);
 
-        return ["exercise" => $exercise[0], "fields" => $fields];
-    }
-    public function createFieldsOld(): void{
-        $data = $this->fields();
-        Renderer::render("newFields", $data);
+        $data = ["exercise" => $exercise[0], "fields" => $fields];
+        Renderer::render("newFields",$data);
     }
 
-    public function fulfillmentsOld(): void{
-        $data = $this->fields();
-        Renderer::render("fulfillments", $data);
-    }
     public function createField(array $data): void
     {
         $label = $data['fieldLabel'] ?? '';

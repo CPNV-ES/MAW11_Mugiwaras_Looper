@@ -2,7 +2,8 @@
     "name": "mugiwaras/looper",
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "App\\Controllers\\": "src/controllers"
         }
     },
     "require": {

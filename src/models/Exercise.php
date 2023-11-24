@@ -18,6 +18,10 @@ class Exercise
     {
         return $this->db->query("SELECT * from exercises order by id_exercise desc limit 1")->fetchAll();
     }
+    public function getExerciseById($exerciseId): array
+    {
+        return $this->db->query("SELECT * from exercises WHERE id_exercise = $exerciseId")->fetchAll();
+    }
 
     public function getAllExercisesAnswering(): array|false
     {

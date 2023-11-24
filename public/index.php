@@ -10,7 +10,7 @@ Dotenv\Dotenv::createUnsafeImmutable(APP_ROOT)->load();
 
 $router = new \Mugiwaras\Framework\Core\Router([
 new Route("get","/","HomeController@index"),
-new Route("get","/exercises","ExercisesController@manage"),
+new Route("get","/exercises","ExercisesController@index"),
 new Route("get","/exercises/new","ExercisesController@new"),
 new Route("get","/exercises/answering","ExercisesController@answering"),
 

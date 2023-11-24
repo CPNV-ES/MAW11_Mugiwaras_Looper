@@ -15,7 +15,7 @@ class ExercisesController
         $this->model = new Exercise();
     }
 
-    public function manage(): void
+    public function index(): void
     {
         $categorizedExercises = $this->model->getCategorizedExercises();
         Renderer::render("manageExercise", ['categorizedExercises' => $categorizedExercises]);

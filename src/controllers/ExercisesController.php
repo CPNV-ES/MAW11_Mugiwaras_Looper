@@ -21,8 +21,7 @@ class ExercisesController
         Renderer::render("manageExercise", ['categorizedExercises' => $categorizedExercises]);
     }
 
-    public function answering(): void
-    {
+    public function answering(): void{
         // Call the function getAllExercises() in order to send the titles and ids of the exercises to the view
         $exercises = $this->model->getAllExercisesAnswering();
         $data = ['exercises' => $exercises];

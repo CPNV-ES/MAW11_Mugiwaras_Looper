@@ -10,6 +10,9 @@
         "vlucas/phpdotenv": "^5.5",
         "mugiwaras/framework": "dev-main"
     },
+    "require-dev": {
+        "symfony/var-dumper": "^6.3"
+    },
     "repositories": [
         {
             "type": "vcs",

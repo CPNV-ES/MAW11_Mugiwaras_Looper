@@ -55,6 +55,12 @@ class Exercise
 
         return null;  // Return null if the insertion failed
     }
+    public function addFulfillment($exerciseId): false|string
+    {
+        $statement = $this->db->prepare("INSERT INTO fulfillments (id_exercise) VALUES (:exerciseId)");
+        $statement->execute(['exerciseId'=> $exerciseId]);
+        return $this->db->lastInsertId();
+    }
 
     public function addField($label, $fieldKind, $exercise)
     {

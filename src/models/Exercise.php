@@ -39,6 +39,11 @@ class Exercise
         )->fetchAll();
     }
 
+    public function getAnswersFromFulfillmentId(mixed $fulfillmentId): false|array
+    {
+        return $this->db->query("SELECT * from answers WHERE id_fulfillment = $fulfillmentId")->fetchAll();
+    }
+
     public function addExercise(string $title): ?int
     {
         // Add the exercise to the database

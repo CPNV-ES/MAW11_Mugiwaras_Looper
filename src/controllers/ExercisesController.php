@@ -70,6 +70,14 @@ class ExercisesController
         $data = ["exercise" => $exercise[0], "fields" => $fields];
         Renderer::render("fulfillments", $data);
     }
+    public function saveAnswers(array $data): void
+    {
+        $exerciseId = $data['exerciseId'] ?? '';
+        $answers = $this->arrayCleanup($data);
+
+        $fulfillmentId = $this->model->saveAnswers($exerciseId, $answers);
+        header("Location: /exercises/".$data['exerciseId']."/fulfillments/".$fulfillmentId."/edit");
+    }
     private function arrayCleanup(array $dirtyArray): array
     {
         $cleanArray = [];

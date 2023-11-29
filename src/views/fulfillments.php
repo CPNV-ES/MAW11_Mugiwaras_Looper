@@ -13,13 +13,13 @@
         <?php
         foreach ($data['fields'] as $field): ?>
         <div class="field">
-            <label for="fulfillment_answers_attributes__value"><?= $field['label'] ?></label>
-            <input type="<?= $field['value_kind'] ?>" name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value">
+            <label for="fulfillment_answers_attributes__value"><?= $field['label'] ?: 'Value'  ?></label>
+            <input type="<?= $field['value_kind'] ?>" name="answer_<?=$field['id_field']?>" id="fulfillment_answers_attributes__value">
         </div>
         <?php
         endforeach; ?>
         <div class="actions">
-            <input type="submit" name="commit" value="Save" data-disable-with="Save">
+            <input type="submit" value="Save" data-disable-with="Save">
         </div>
     </form>
 </main>

@@ -62,6 +62,18 @@ class ExercisesController
 
         header("Location: /exercises/".$data['exerciseId']."/fields");
     }
+    private function arrayCleanup(array $dirtyArray): array
+    {
+        $cleanArray = [];
+
+        foreach ($dirtyArray as $key => $value) {
+            if(strpos($key, 'answer_') === 0){
+                $splitedData = explode('answer_', $key);
+                $cleanArray[$splitedData[1]] = $value;
+            }
+        }
+        return $cleanArray;
+    }
 
     public function updateStatus(): void
     {

@@ -62,6 +62,14 @@ class ExercisesController
 
         header("Location: /exercises/".$data['exerciseId']."/fields");
     }
+    public function fulfillments(array $uriParams): void
+    {
+        $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
+        $fields = $this->model->getFields($exercise[0]['id_exercise']);
+
+        $data = ["exercise" => $exercise[0], "fields" => $fields];
+        Renderer::render("fulfillments", $data);
+    }
     private function arrayCleanup(array $dirtyArray): array
     {
         $cleanArray = [];

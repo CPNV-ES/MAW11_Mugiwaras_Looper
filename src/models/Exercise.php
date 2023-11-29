@@ -97,4 +97,14 @@ class Exercise
         $statement = $this->db->prepare("UPDATE exercises SET status = :newStatus WHERE id_exercise = :exerciseId");
         $statement->execute(['newStatus' => $newStatus, 'exerciseId' => $exerciseId]);
     }
+
+    public function saveAnswers(mixed $exerciseId, array $answers)
+    {
+        $fulfillmentId = $this->addFulfillment($exerciseId);
+        $statement = $this->db->prepare("INSERT INTO answers (id_field, id_fulfillment, answer) VALUES (:idField, :idFulfillment, :answer)");
+        foreach ($answers as $idField => $value) {
+            $statement->execute(['idField' => $idField, 'idFulfillment' => $fulfillmentId, 'answer' => $value]);
+        }
+        return $fulfillmentId;
+    }
 }

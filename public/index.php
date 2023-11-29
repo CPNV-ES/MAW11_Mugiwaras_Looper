@@ -17,7 +17,9 @@ new Route("get","/exercises/answering","ExercisesController@answering"),
 new Route("post","/exercises/create","ExercisesController@create"),
 new Route("get","/exercises/{exerciseId}/fields","ExercisesController@fields"),
 new Route("post","/exercises/{exerciseId}/fields","ExercisesController@createField"),
+new Route("post","/exercises/{exerciseId}/fulfillments","ExercisesController@saveAnswers"),
 new Route("get","/exercises/{exerciseId}/fulfillments/new","ExercisesController@fulfillments"),
+new Route("get","/exercises/{exerciseId}/fulfillments/{fulfillmentId}/edit","ExercisesController@fulfillmentsEdit"),
 
     ]);
 $router->run();

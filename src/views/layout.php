@@ -2,13 +2,12 @@
 require 'headers/layoutHead.php'; ?>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Exercise Looper</title>
+    <head>
+        <title>Exercise Looper</title>
     <?= $layoutHead ?? '' ?>
-    <script src="/js/manageExercises.js"></script>
-</head>
-<body>
-<?= $dynamicHeader ?? '' ?>
-<?= $content ?? '' ?>
-</body>
+    </head>
+        <body>
+        <?= $dynamicHeader ?? '' ?>
+        <?= $content ?? '' ?>
+        </body>
 </html>

@@ -9,8 +9,8 @@ require 'headers/fulfillmentsHeader.php'; ?>
         <?php
         foreach ($data['fields'] as $field): ?>
         <div class="field">
-            <label for="fulfillment_answers_attributes__value"><?= $field['label'] ?: 'Value'  ?></label>
-            <input type="<?= $field['value_kind'] ?>" name="answer_<?=$field['id_field']?>" id="fulfillment_answers_attributes__value">
+            <label for="fulfillment_answers_attributes_value"><?= $field['label'] ?: 'Value'  ?></label>
+            <input type="<?= $field['value_kind'] ?>" name="answer_<?=$field['id_field']?>" id="fulfillment_answers_attributes_value" >
         </div>
         <?php
         endforeach; ?>

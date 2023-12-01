@@ -70,6 +70,17 @@ class ExercisesController
         $data = ["exercise" => $exercise[0], "fields" => $fields];
         Renderer::render("fulfillments", $data);
     }
+    public function fulfillmentsEdit(array $uriParams): void
+    {
+        $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
+        $fields = $this->model->getFields($exercise[0]['id_exercise']);
+        $answers = $this->model->getAnswersFromFulfillmentId($uriParams['fulfillmentId']);
+
+        $data = ["exercise" => $exercise[0], "fields" => $fields, "answers" => $answers];
+
+        Renderer::render("fulfillmentsEdit", $data);
+    }
+
     public function saveAnswers(array $data): void
     {
         $exerciseId = $data['exerciseId'] ?? '';

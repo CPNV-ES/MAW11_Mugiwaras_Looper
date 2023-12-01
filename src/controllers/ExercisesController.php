@@ -75,8 +75,6 @@ class ExercisesController
         $data = $this->model->getAnswersByFields($exerciseId);
         $uniqueFields = $this->getUniqueFields($data);
         $answersByFulfillment = $this->groupAnswersByFulfillment($data);
-        var_dump($answersByFulfillment);
-
         Renderer::render("results", compact('uniqueFields', 'answersByFulfillment'));
     }
 

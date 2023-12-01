@@ -34,29 +34,33 @@ class ExercisesController
         Renderer::render("createExercise");
     }
 
-    public function create(): void
+    public function create(array $data): void
     {
         // Get the title of the new exercise from the form
-        $title = $_POST['exercise']['title'] ?? '';
+        $title = $data['exerciseTitle'] ?? '';
         // Attempt to add the new exercise and get the ID
         $exerciseId = $this->model->addExercise($title);
         // Exercise creation succeeded, we redirect to the new exercise's page.
         header("Location: /exercises/$exerciseId/fields");
     }
 
-    public function fields(array $bag): void
+    public function fields(array $uriParams): void
     {
-        $label = $_POST['field']['label'] ?? '';
-        $fieldKind = $_POST['field']['value_kind'] ?? '';
-        $exercise = $this->model->getLastInsertedExercise();
-
-        if (!empty($fieldKind)) {
-            $this->model->addField($label, $fieldKind, $exercise[0]['id_exercise']);
-        }
+        $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
         $fields = $this->model->getFields($exercise[0]['id_exercise']);
 
         $data = ["exercise" => $exercise[0], "fields" => $fields];
         Renderer::render("newFields", $data);
+    }
+    
+    public function createField(array $data): void
+    {
+        $label = $data['fieldLabel'] ?? '';
+        $fieldKind = $data['fieldKind'] ?? '';
+
+        $this->model->addField($label, $fieldKind, $data['exerciseId']);
+
+        header("Location: /exercises/".$data['exerciseId']."/fields");
     }
 
     public function updateStatus(): void

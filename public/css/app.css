@@ -169,3 +169,13 @@ label {
   display: block;
 }
 
+.doubleIcons {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.doubleIcons a {
+  height: 20px;
+
+}

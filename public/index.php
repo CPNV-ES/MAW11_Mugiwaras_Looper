@@ -20,6 +20,6 @@ new Route("post","/exercises/{exerciseId}/fields","ExercisesController@createFie
 new Route("post","/exercises/{exerciseId}/fulfillments","ExercisesController@saveAnswers"),
 new Route("get","/exercises/{exerciseId}/fulfillments/new","ExercisesController@fulfillments"),
 new Route("get","/exercises/{exerciseId}/fulfillments/{fulfillmentId}/edit","ExercisesController@fulfillmentsEdit"),
-
+    new Route("get", "/exercises/{exerciseId}/results/{fieldId}", "ResultController@getResultsOfField"),
     ]);
 $router->run();

@@ -108,7 +108,7 @@ class Exercise
             $statement->execute(['idField' => $idField, 'idFulfillment' => $fulfillmentId, 'answer' => $value]);
         }
         return $fulfillmentId;
-
+    }
     public function getExercise($exerciseId): array
     {
         $statement = $this->db->prepare("SELECT * FROM exercises WHERE id_exercise = :exerciseId");

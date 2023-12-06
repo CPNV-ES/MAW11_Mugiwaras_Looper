@@ -50,7 +50,7 @@ class ExercisesController
         $fields = $this->model->getFields($exercise[0]['id_exercise']);
 
         $data = ["exercise" => $exercise[0], "fields" => $fields];
-        Renderer::render("newFields",$data);
+        Renderer::render("newFields", $data);
     }
 
     public function createField(array $data): void
@@ -106,10 +106,38 @@ class ExercisesController
     {
         $exerciseId = $_GET['id_exercise'] ?? null;
         $newStatus = $_GET['newStatus'] ?? null;
-
         if ($exerciseId && $newStatus) {
             $this->model->updateExerciseStatus($exerciseId, $newStatus);
             header("Location: /exercises");
         }
+    }
+
+    public function showResults(array $data): void
+    {
+        $exerciseId = $data['id'];
+        $data = $this->model->getAnswersByFields($exerciseId);
+        $uniqueFields = $this->getUniqueFields($data);
+        $answersByFulfillment = $this->groupAnswersByFulfillment($data);
+        Renderer::render("results", compact('uniqueFields', 'answersByFulfillment'));
+    }
+
+    private function getUniqueFields(array $data): array
+    {
+        return array_unique(array_column($data, 'field_label'));
+    }
+
+    private function groupAnswersByFulfillment(array $data): array
+    {
+        $answersByFulfillment = [];
+
+        foreach ($data as $row) {
+            $fulfilled_at = $row['fulfilled_at'];
+            $field_label = $row['field_label'];
+            $answer = $row['answer'];
+
+            $answersByFulfillment[$fulfilled_at][$field_label] = $answer;
+        }
+
+        return $answersByFulfillment;
     }
 }

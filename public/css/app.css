@@ -186,3 +186,11 @@ input:focus {
 input[type="submit"] {
    width: fit-content;
  }
+.doubleIcons {
+  display: flex;
+  flex-direction: column;
+}
+.doubleIcons a {
+  height: 20px;
+
+}

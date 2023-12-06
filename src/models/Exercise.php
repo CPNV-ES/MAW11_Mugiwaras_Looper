@@ -3,6 +3,7 @@
 namespace App\models;
 
 use App\models\DatabaseConnection;
+use PDO;
 
 class Exercise
 {
@@ -62,17 +63,18 @@ class Exercise
         return $this->db->lastInsertId();
     }
 
-    public function addField($label, $fieldKind, $exercise)
+    public function addField($label, $fieldKind, $exercise): void
     {
         $statement = $this->db->prepare("INSERT INTO fields (label, value_kind, id_exercise) VALUES (:label, :fieldKind, :exercise)");
         $statement->execute(['label'=> $label, 'fieldKind'=>$fieldKind, 'exercise'=> $exercise]);
     }
 
-    public function getFields($exerciseId)
+    public function getFields($exerciseId): false|array
     {
-        return $this->db->query("SELECT id_field, label, value_kind from fields WHERE id_exercise = $exerciseId")->fetchAll();
+        $statement = $this->db->prepare("SELECT id_fields, label, value_kind FROM fields WHERE id_exercise = :exerciseId");
+        $statement->execute(['exerciseId' => $exerciseId]);
+        return $statement->fetchAll();
     }
-
     public function getCategorizedExercises(): array
     {
         // Fetch all exercises
@@ -106,5 +108,32 @@ class Exercise
             $statement->execute(['idField' => $idField, 'idFulfillment' => $fulfillmentId, 'answer' => $value]);
         }
         return $fulfillmentId;
+
+    public function getExercise($exerciseId): array
+    {
+        $statement = $this->db->prepare("SELECT * FROM exercises WHERE id_exercise = :exerciseId");
+        $statement->execute(['exerciseId' => $exerciseId]);
+        return $statement->fetchAll();
+    }
+
+    public function getAnswersByFields($exerciseId): array
+    {
+        // Using a JOIN query for better performance and readability
+        $statement = $this->db->prepare("
+        SELECT a.*, f.label AS field_label, ful.fulfilled_at, f.id_exercise
+        FROM answers AS a
+        JOIN fields AS f ON a.id_fields = f.id_fields
+        JOIN fulfillments AS ful ON a.id_fulfillment = ful.id_fulfillment
+        WHERE f.id_exercise = :exerciseId;
+    ");
+
+        // Binding the parameter
+        $statement->bindParam(':exerciseId', $exerciseId, PDO::PARAM_INT);
+
+        // Executing the query
+        $statement->execute();
+
+        // Fetching all results
+        return $statement->fetchAll();
     }
 }

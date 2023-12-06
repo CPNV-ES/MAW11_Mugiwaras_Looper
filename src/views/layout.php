@@ -6,8 +6,8 @@ require 'headers/layoutHead.php'; ?>
         <title>Exercise Looper</title>
     <?= $layoutHead ?? '' ?>
     </head>
-        <body>
+    <body>
         <?= $dynamicHeader ?? '' ?>
         <?= $content ?? '' ?>
-        </body>
+    </body>
 </html>

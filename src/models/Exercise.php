@@ -40,6 +40,11 @@ class Exercise
         )->fetchAll();
     }
 
+    public function getAnswersFromFulfillmentId(mixed $fulfillmentId): false|array
+    {
+        return $this->db->query("SELECT * from answers WHERE id_fulfillment = $fulfillmentId")->fetchAll();
+    }
+
     public function addExercise(string $title): ?int
     {
         // Add the exercise to the database
@@ -50,6 +55,12 @@ class Exercise
         }
 
         return null;  // Return null if the insertion failed
+    }
+    public function addFulfillment($exerciseId): false|string
+    {
+        $statement = $this->db->prepare("INSERT INTO fulfillments (id_exercise) VALUES (:exerciseId)");
+        $statement->execute(['exerciseId'=> $exerciseId]);
+        return $this->db->lastInsertId();
     }
 
     public function addField($label, $fieldKind, $exercise): void
@@ -89,12 +100,22 @@ class Exercise
         $statement->execute(['newStatus' => $newStatus, 'exerciseId' => $exerciseId]);
     }
 
+    public function saveAnswers(mixed $exerciseId, array $answers)
+    {
+        $fulfillmentId = $this->addFulfillment($exerciseId);
+        $statement = $this->db->prepare("INSERT INTO answers (id_field, id_fulfillment, answer) VALUES (:idField, :idFulfillment, :answer)");
+        foreach ($answers as $idField => $value) {
+            $statement->execute(['idField' => $idField, 'idFulfillment' => $fulfillmentId, 'answer' => $value]);
+        }
+        return $fulfillmentId;
+
     public function getExercise($exerciseId): array
     {
         $statement = $this->db->prepare("SELECT * FROM exercises WHERE id_exercise = :exerciseId");
         $statement->execute(['exerciseId' => $exerciseId]);
         return $statement->fetchAll();
     }
+
     public function getAnswersByFields($exerciseId): array
     {
         // Using a JOIN query for better performance and readability

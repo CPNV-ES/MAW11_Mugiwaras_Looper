@@ -21,8 +21,7 @@ class ExercisesController
         Renderer::render("manageExercise", ['categorizedExercises' => $categorizedExercises]);
     }
 
-    public function answering(): void
-    {
+    public function answering(): void{
         // Call the function getAllExercises() in order to send the titles and ids of the exercises to the view
         $exercises = $this->model->getAllExercisesAnswering();
         $data = ['exercises' => $exercises];
@@ -42,9 +41,10 @@ class ExercisesController
         $exerciseId = $this->model->addExercise($title);
         // Exercise creation succeeded, we redirect to the new exercise's page.
         header("Location: /exercises/$exerciseId/fields");
-    }
 
-    public function fields(array $uriParams): void
+    }
+    
+    public function fields(array $uriParams)
     {
         $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
         $fields = $this->model->getFields($exercise[0]['id_exercise']);
@@ -52,7 +52,7 @@ class ExercisesController
         $data = ["exercise" => $exercise[0], "fields" => $fields];
         Renderer::render("newFields", $data);
     }
-    
+
     public function createField(array $data): void
     {
         $label = $data['fieldLabel'] ?? '';
@@ -61,6 +61,45 @@ class ExercisesController
         $this->model->addField($label, $fieldKind, $data['exerciseId']);
 
         header("Location: /exercises/".$data['exerciseId']."/fields");
+    }
+    public function fulfillments(array $uriParams): void
+    {
+        $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
+        $fields = $this->model->getFields($exercise[0]['id_exercise']);
+
+        $data = ["exercise" => $exercise[0], "fields" => $fields];
+        Renderer::render("fulfillments", $data);
+    }
+    public function fulfillmentsEdit(array $uriParams): void
+    {
+        $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
+        $fields = $this->model->getFields($exercise[0]['id_exercise']);
+        $answers = $this->model->getAnswersFromFulfillmentId($uriParams['fulfillmentId']);
+
+        $data = ["exercise" => $exercise[0], "fields" => $fields, "answers" => $answers];
+
+        Renderer::render("fulfillmentsEdit", $data);
+    }
+
+    public function saveAnswers(array $data): void
+    {
+        $exerciseId = $data['exerciseId'] ?? '';
+        $answers = $this->arrayCleanup($data);
+
+        $fulfillmentId = $this->model->saveAnswers($exerciseId, $answers);
+        header("Location: /exercises/".$data['exerciseId']."/fulfillments/".$fulfillmentId."/edit");
+    }
+    private function arrayCleanup(array $dirtyArray): array
+    {
+        $cleanArray = [];
+
+        foreach ($dirtyArray as $key => $value) {
+            if(strpos($key, 'answer_') === 0){
+                $splitedData = explode('answer_', $key);
+                $cleanArray[$splitedData[1]] = $value;
+            }
+        }
+        return $cleanArray;
     }
 
     public function updateStatus(): void

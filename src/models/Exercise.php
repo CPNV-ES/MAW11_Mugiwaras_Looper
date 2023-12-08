@@ -51,6 +51,17 @@ class Exercise
         return null;  // Return null if the insertion failed
     }
 
+    public function getFieldById($fieldId)
+    {
+        return $this->db->query("SELECT * from fields WHERE id_field = $fieldId")->fetchAll();
+    }
+
+    public function deleteField($exerciseId, $fieldId)
+    {
+        $statement = $this->db->prepare("DELETE FROM fields WHERE id_field = :fieldId");
+        $statement->execute(['fieldId' => $fieldId]);
+    }
+
     public function addField($label, $fieldKind, $exercise)
     {
         $statement = $this->db->prepare("INSERT INTO fields (label, value_kind, id_exercise) VALUES (:label, :fieldKind, :exercise)");

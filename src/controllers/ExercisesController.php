@@ -85,5 +85,11 @@ class ExercisesController
             $this->model->updateExerciseStatus($exerciseId, $newStatus);
             header("Location: /exercises");
         }
+    public function updateStatus(array $data): void
+    {
+        $exerciseId = $data['exerciseId'] ?? '';
+        $newStatus = $data['query']['status'] ?? '';
+        $this->model->updateExerciseStatus($exerciseId, $newStatus);
+        header("Location: /exercises");
     }
 }

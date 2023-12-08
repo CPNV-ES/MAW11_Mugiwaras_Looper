@@ -36,11 +36,8 @@ class ExercisesController
 
     public function create(array $data): void
     {
-        // Get the title of the new exercise from the form
         $title = $data['exerciseTitle'] ?? '';
-        // Attempt to add the new exercise and get the ID
         $exerciseId = $this->model->addExercise($title);
-        // Exercise creation succeeded, we redirect to the new exercise's page.
         header("Location: /exercises/$exerciseId/fields");
     }
 
@@ -104,7 +101,10 @@ class ExercisesController
         }
         return $cleanArray;
     }
-
+    public function deleteExercise(array $uriParams): void
+    {
+        $this->model->deleteExercise($uriParams['exerciseId']);
+        header("Location: /exercises");
     public function deleteField(array $uriParams): void
     {
         $this->model->deleteField($uriParams['exerciseId'], $uriParams['fieldId']);
@@ -132,22 +132,17 @@ class ExercisesController
 
     public function updateStatus(array $data): void
     {
-        $exerciseId = $data['exerciseId'] ?? '';
-        $newStatus = $data['query']['status'] ?? '';
-        $this->model->updateExerciseStatus($exerciseId, $newStatus);
-        header("Location: /exercises");
         $exerciseId = $_GET['id_exercise'] ?? null;
         $newStatus = $_GET['newStatus'] ?? null;
         if ($exerciseId && $newStatus) {
             $this->model->updateExerciseStatus($exerciseId, $newStatus);
             header("Location: /exercises");
-        }
     }
 
     public function showResults(array $data): void
     {
-        $exerciseId = $data['id'];
-        $data = $this->model->getAnswersByFields($exerciseId);
+        $exerciseId = $data['exerciseId'];
+        $data = $this->model->getAnswersByExerciseId($exerciseId);
         $uniqueFields = $this->getUniqueFields($data);
         $answersByFulfillment = $this->groupAnswersByFulfillment($data);
         Renderer::render("results", compact('uniqueFields', 'answersByFulfillment'));
@@ -163,13 +158,11 @@ class ExercisesController
         $answersByFulfillment = [];
 
         foreach ($data as $row) {
-            $fulfilled_at = $row['fulfilled_at'];
+            $fulfilled_at = $row['submited_at'];
             $field_label = $row['field_label'];
             $answer = $row['answer'];
-
             $answersByFulfillment[$fulfilled_at][$field_label] = $answer;
         }
-
         return $answersByFulfillment;
     }
 }

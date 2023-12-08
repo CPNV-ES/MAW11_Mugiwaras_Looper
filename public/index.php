@@ -15,6 +15,7 @@ $router = new \Mugiwaras\Framework\Core\Router([
     new Route("put", "/exercises/{exerciseId}", "ExercisesController@updateStatus"),
     new Route('get', "/exercises/{id}/edit", "ExercisesController@fields"),
     new Route('get', "/exercises/{id}/results", "ExercisesController@showResults"),
+    new Route("delete","/exercises/{exerciseId}","ExercisesController@deleteExercise"),
 
     new Route("get", "/exercises/new", "ExercisesController@new"),
     new Route("get", "/exercises/answering", "ExercisesController@answering"),
@@ -26,11 +27,12 @@ $router = new \Mugiwaras\Framework\Core\Router([
     new Route("delete", "/exercises/{exerciseId}/fields/{fieldId}", "ExercisesController@deleteField"),
     new Route("post", "/exercises/{exerciseId}/fields/{fieldId}", "ExercisesController@updateField"),
     new Route("get", "/exercises/{exerciseId}/fields/{fieldId}/edit", "ExercisesController@editField"),
+    new Route("delete", "/exercises/{exerciseId}/fields/{fieldId}", "ExercisesController@deleteField"),
 
     new Route("post", "/exercises/{exerciseId}/fulfillments", "ExercisesController@saveAnswers"),
     new Route("get", "/exercises/{exerciseId}/fulfillments/new", "ExercisesController@fulfillments"),
     new Route("get", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}/edit", "ExercisesController@fulfillmentsEdit"),
-
+    new Route("get","/exercises/{exerciseId}/results","ExercisesController@showResults"),
 ]);
 
 $router->run();

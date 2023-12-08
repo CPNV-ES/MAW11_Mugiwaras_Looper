@@ -14,7 +14,7 @@ $router = new \Mugiwaras\Framework\Core\Router([
     new Route("get", "/exercises", "ExercisesController@index"),
     new Route("put", "/exercises/{exerciseId}", "ExercisesController@updateStatus"),
     new Route('get', "/exercises/{id}/edit", "ExercisesController@fields"),
-    new Route('get', "/exercises/{id}/results", "ExercisesController@showResults"),
+    new Route('get', "/exercises/{exerciseId}/results", "ExercisesController@showResults"),
     new Route("delete","/exercises/{exerciseId}","ExercisesController@deleteExercise"),
 
     new Route("get", "/exercises/new", "ExercisesController@new"),

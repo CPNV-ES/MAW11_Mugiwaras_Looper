@@ -105,6 +105,7 @@ class ExercisesController
     {
         $this->model->deleteExercise($uriParams['exerciseId']);
         header("Location: /exercises");
+    }
     public function deleteField(array $uriParams): void
     {
         $this->model->deleteField($uriParams['exerciseId'], $uriParams['fieldId']);
@@ -137,6 +138,7 @@ class ExercisesController
         if ($exerciseId && $newStatus) {
             $this->model->updateExerciseStatus($exerciseId, $newStatus);
             header("Location: /exercises");
+        }
     }
 
     public function showResults(array $data): void

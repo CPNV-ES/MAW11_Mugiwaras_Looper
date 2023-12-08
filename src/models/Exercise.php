@@ -105,12 +105,6 @@ class Exercise
         $statement->execute(['exerciseId' => $exerciseId]);
     }
 
-    public function deleteField($exerciseId, $fieldId): void
-    {
-        $statement = $this->db->prepare("DELETE FROM fields WHERE id_field = :fieldId");
-        $statement->execute(['fieldId' => $fieldId]);
-    }
-  
     public function getCategorizedExercises(): array
     {
         // Fetch all exercises

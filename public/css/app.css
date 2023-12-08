@@ -194,3 +194,28 @@ input[type="submit"] {
   height: 20px;
 
 }
+form.icon-form {
+  display: inline-block; /* Ensure the form takes up only as much width as necessary */
+}
+form.icon-form button {
+  padding: 0; /* Remove default button padding */
+  border: none; /* Remove default button border */
+  cursor: pointer;
+}
+form.icon-form i {
+  font-size: 16px;
+  color: white;
+}
+
+button.no-css {
+  background-color: white;
+  border: none;
+  padding: 0;
+}
+form.icon-form i.purple{
+  color: rgba(155, 77, 202, 1);
+}
+
+form.icon-form i.purple:hover {
+  color: #606c76;
+}

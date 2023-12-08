@@ -61,6 +61,12 @@ class ExercisesController
         $this->model->addField($label, $fieldKind, $data['exerciseId']);
 
         header("Location: /exercises/".$data['exerciseId']."/fields");
+    public function deleteField(array $uriParams): void
+    {
+        $this->model->deleteField($uriParams['exerciseId'], $uriParams['fieldId']);
+        header("Location: /exercises/" . $uriParams['exerciseId'] . "/fields");
+    }
+
     }
 
     public function updateStatus(): void

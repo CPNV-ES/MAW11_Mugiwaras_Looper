@@ -19,6 +19,7 @@ class Exercise
     {
         return $this->db->query("SELECT * from exercises order by id_exercise desc limit 1")->fetchAll();
     }
+
     public function getExerciseById($exerciseId): array
     {
         return $this->db->query("SELECT * from exercises WHERE id_exercise = $exerciseId")->fetchAll();
@@ -56,17 +57,39 @@ class Exercise
 
         return null;  // Return null if the insertion failed
     }
+
     public function addFulfillment($exerciseId): false|string
     {
         $statement = $this->db->prepare("INSERT INTO fulfillments (id_exercise) VALUES (:exerciseId)");
-        $statement->execute(['exerciseId'=> $exerciseId]);
+        $statement->execute(['exerciseId' => $exerciseId]);
         return $this->db->lastInsertId();
     }
 
-    public function addField($label, $fieldKind, $exercise): void
+    public function getFieldById($fieldId)
     {
-        $statement = $this->db->prepare("INSERT INTO fields (label, value_kind, id_exercise) VALUES (:label, :fieldKind, :exercise)");
-        $statement->execute(['label'=> $label, 'fieldKind'=>$fieldKind, 'exercise'=> $exercise]);
+        return $this->db->query("SELECT * from fields WHERE id_field = $fieldId")->fetchAll();
+    }
+
+    public function deleteField($exerciseId, $fieldId)
+    {
+        $statement = $this->db->prepare("DELETE FROM fields WHERE id_field = :fieldId");
+        $statement->execute(['fieldId' => $fieldId]);
+    }
+
+    public function addField($label, $fieldKind, $exercise)
+    {
+        $statement = $this->db->prepare(
+            "INSERT INTO fields (label, value_kind, id_exercise) VALUES (:label, :fieldKind, :exercise)"
+        );
+        $statement->execute(['label' => $label, 'fieldKind' => $fieldKind, 'exercise' => $exercise]);
+    }
+
+    public function updateField($label, $fieldKind, $fieldId): void
+    {
+        $statement = $this->db->prepare(
+            "UPDATE fields SET label = :label, value_kind = :fieldKind WHERE id_field = :fieldId"
+        );
+        $statement->execute(['label' => $label, 'fieldKind' => $fieldKind, 'fieldId' => $fieldId]);
     }
 
     public function getFields($exerciseId): false|array
@@ -75,7 +98,7 @@ class Exercise
         $statement->execute(['exerciseId' => $exerciseId]);
         return $statement->fetchAll();
     }
-
+  
     public function deleteExercise($exerciseId): void
     {
         $statement = $this->db->prepare("DELETE FROM exercises WHERE id_exercise = :exerciseId");
@@ -87,6 +110,7 @@ class Exercise
         $statement = $this->db->prepare("DELETE FROM fields WHERE id_field = :fieldId");
         $statement->execute(['fieldId' => $fieldId]);
     }
+  
     public function getCategorizedExercises(): array
     {
         // Fetch all exercises
@@ -115,12 +139,15 @@ class Exercise
     public function saveAnswers(mixed $exerciseId, array $answers)
     {
         $fulfillmentId = $this->addFulfillment($exerciseId);
-        $statement = $this->db->prepare("INSERT INTO answers (id_field, id_fulfillment, answer) VALUES (:idField, :idFulfillment, :answer)");
+        $statement = $this->db->prepare(
+            "INSERT INTO answers (id_field, id_fulfillment, answer) VALUES (:idField, :idFulfillment, :answer)"
+        );
         foreach ($answers as $idField => $value) {
             $statement->execute(['idField' => $idField, 'idFulfillment' => $fulfillmentId, 'answer' => $value]);
         }
         return $fulfillmentId;
     }
+
     public function getExercise($exerciseId): array
     {
         $statement = $this->db->prepare("SELECT * FROM exercises WHERE id_exercise = :exerciseId");
@@ -136,8 +163,7 @@ class Exercise
         FROM answers AS a
         JOIN fields AS f ON a.id_field = f.id_field
         JOIN fulfillments AS ful ON a.id_fulfillment = ful.id_fulfillment
-        WHERE f.id_exercise = :exerciseId;
-    ");
+        WHERE f.id_exercise = :exerciseId;");
 
         // Binding the parameter
         $statement->bindParam(':exerciseId', $exerciseId, PDO::PARAM_INT);

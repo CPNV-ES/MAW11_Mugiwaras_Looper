@@ -75,6 +75,18 @@ class Exercise
         $statement->execute(['exerciseId' => $exerciseId]);
         return $statement->fetchAll();
     }
+
+    public function deleteExercise($exerciseId): void
+    {
+        $statement = $this->db->prepare("DELETE FROM exercises WHERE id_exercise = :exerciseId");
+        $statement->execute(['exerciseId' => $exerciseId]);
+    }
+
+    public function deleteField($exerciseId, $fieldId): void
+    {
+        $statement = $this->db->prepare("DELETE FROM fields WHERE id_field = :fieldId");
+        $statement->execute(['fieldId' => $fieldId]);
+    }
     public function getCategorizedExercises(): array
     {
         // Fetch all exercises

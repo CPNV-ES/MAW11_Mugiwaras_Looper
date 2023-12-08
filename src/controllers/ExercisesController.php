@@ -100,6 +100,17 @@ class ExercisesController
         }
         return $cleanArray;
     }
+    public function deleteField(array $uriParams): void
+    {
+        $this->model->deleteField($uriParams['exerciseId'], $uriParams['fieldId']);
+        header("Location: /exercises/" . $uriParams['exerciseId'] . "/fields");
+    }
+
+    public function deleteExercise(array $uriParams): void
+    {
+        $this->model->deleteExercise($uriParams['exerciseId']);
+        header("Location: /exercises");
+    }
 
     public function updateStatus(array $data): void
     {
@@ -111,7 +122,7 @@ class ExercisesController
 
     public function showResults(array $data): void
     {
-        $exerciseId = $data['id'];
+        $exerciseId = $data['exerciseId'];
         $data = $this->model->getAnswersByExerciseId($exerciseId);
         $uniqueFields = $this->getUniqueFields($data);
         $answersByFulfillment = $this->groupAnswersByFulfillment($data);
@@ -128,13 +139,11 @@ class ExercisesController
         $answersByFulfillment = [];
 
         foreach ($data as $row) {
-            $fulfilled_at = $row['fulfilled_at'];
+            $fulfilled_at = $row['submited_at'];
             $field_label = $row['field_label'];
             $answer = $row['answer'];
-
             $answersByFulfillment[$fulfilled_at][$field_label] = $answer;
         }
-
         return $answersByFulfillment;
     }
 }

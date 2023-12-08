@@ -67,6 +67,13 @@ class ExercisesController
         header("Location: /exercises/" . $uriParams['exerciseId'] . "/fields");
     }
 
+    public function editField(array $uriParams): void
+    {
+        $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
+        $field = $this->model->getFieldById($uriParams['fieldId']);
+
+        $data = ["exercise" => $exercise[0], "field" => $field[0]];
+        Renderer::render("editField", $data);
     }
 
     public function updateStatus(): void

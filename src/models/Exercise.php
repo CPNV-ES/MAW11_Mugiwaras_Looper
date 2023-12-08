@@ -18,6 +18,7 @@ class Exercise
     {
         return $this->db->query("SELECT * from exercises order by id_exercise desc limit 1")->fetchAll();
     }
+
     public function getExerciseById($exerciseId): array
     {
         return $this->db->query("SELECT * from exercises WHERE id_exercise = $exerciseId")->fetchAll();
@@ -64,8 +65,12 @@ class Exercise
 
     public function addField($label, $fieldKind, $exercise)
     {
-        $statement = $this->db->prepare("INSERT INTO fields (label, value_kind, id_exercise) VALUES (:label, :fieldKind, :exercise)");
-        $statement->execute(['label'=> $label, 'fieldKind'=>$fieldKind, 'exercise'=> $exercise]);
+        $statement = $this->db->prepare(
+            "INSERT INTO fields (label, value_kind, id_exercise) VALUES (:label, :fieldKind, :exercise)"
+        );
+        $statement->execute(['label' => $label, 'fieldKind' => $fieldKind, 'exercise' => $exercise]);
+    }
+
     public function getFields($exerciseId): false|array
     {
         return $this->db->query(
@@ -73,9 +78,12 @@ class Exercise
         )->fetchAll();
     }
 
-    public function getFields($exerciseId)
+    public function updateField($label, $fieldKind, $fieldId): void
     {
-        return $this->db->query("SELECT id_field, label, value_kind from fields WHERE id_exercise = $exerciseId")->fetchAll();
+        $statement = $this->db->prepare(
+            "UPDATE fields SET label = :label, value_kind = :fieldKind WHERE id_field = :fieldId"
+        );
+        $statement->execute(['label' => $label, 'fieldKind' => $fieldKind, 'fieldId' => $fieldId]);
     }
 
     public function getCategorizedExercises(): array

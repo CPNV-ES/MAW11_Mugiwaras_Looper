@@ -95,7 +95,7 @@ class Exercise
     public function getFields($exerciseId): false|array
     {
         $statement = $this->db->prepare(
-            "SELECT id_fields, label, value_kind FROM fields WHERE id_exercise = :exerciseId"
+            "SELECT id_field, label, value_kind FROM fields WHERE id_exercise = :exerciseId"
         );
         $statement->execute(['exerciseId' => $exerciseId]);
         return $statement->fetchAll();

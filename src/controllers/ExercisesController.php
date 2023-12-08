@@ -46,13 +46,13 @@ class ExercisesController
 
     public function fields(array $uriParams): void
     {
-
         $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
         $fields = $this->model->getFields($exercise[0]['id_exercise']);
 
         $data = ["exercise" => $exercise[0], "fields" => $fields];
-        Renderer::render("newFields",$data);
+        Renderer::render("newFields", $data);
     }
+
     public function createField(array $data): void
     {
         $label = $data['fieldLabel'] ?? '';
@@ -60,7 +60,9 @@ class ExercisesController
 
         $this->model->addField($label, $fieldKind, $data['exerciseId']);
 
-        header("Location: /exercises/".$data['exerciseId']."/fields");
+        header("Location: /exercises/" . $data['exerciseId'] . "/fields");
+    }
+
     public function deleteField(array $uriParams): void
     {
         $this->model->deleteField($uriParams['exerciseId'], $uriParams['fieldId']);
@@ -76,15 +78,16 @@ class ExercisesController
         Renderer::render("editField", $data);
     }
 
-    public function updateStatus(): void
+    public function updateField(array $data): void
     {
-        $exerciseId = $_GET['id_exercise'] ?? null;
-        $newStatus = $_GET['newStatus'] ?? null;
+        $label = $data['fieldLabel'] ?? '';
+        $fieldKind = $data['fieldKind'] ?? '';
 
-        if ($exerciseId && $newStatus) {
-            $this->model->updateExerciseStatus($exerciseId, $newStatus);
-            header("Location: /exercises");
-        }
+        $this->model->updateField($label, $fieldKind, $data['fieldId']);
+
+        header("Location: /exercises/" . $data['exerciseId'] . "/fields");
+    }
+
     public function updateStatus(array $data): void
     {
         $exerciseId = $data['exerciseId'] ?? '';

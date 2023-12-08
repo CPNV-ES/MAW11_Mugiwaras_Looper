@@ -32,7 +32,7 @@
                 </tbody>
             </table>
 
-            <a data-confirm="Are you sure? You won't be able to further edit this exercise" class="button" rel="nofollow" data-method="put" href="/exercises/<?= $data[0] ?>?exercise[status]=answering"><i class="fa fa-comment"></i> Complete and be ready for answers</a>
+            <a data-confirm="Are you sure? You won't be able to further edit this exercise" class="button" rel="nofollow" data-method="put" href="/exercises/<?= $data['exercise']['id_exercise']?>?status=answering"><i class="fa fa-comment"></i> Complete and be ready for answers</a>
 
         </section>
         <section class="column">
@@ -46,9 +46,11 @@
 
                 <div class="field">
                     <label for="field_value_kind">Value kind</label>
-                    <select name="fieldKind" id="field_value_kind"><option selected="selected" value="single_line">Single line text</option>
+                    <select name="fieldKind" id="field_value_kind">
+                        <option value="single_line">Single line text</option>
                         <option value="single_line_list">List of single lines</option>
-                        <option value="multi_line">Multi-line text</option></select>
+                        <option value="multi_line">Multi-line text</option>
+                    </select>
                 </div>
 
                 <div class="actions">

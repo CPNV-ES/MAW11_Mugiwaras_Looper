@@ -3,6 +3,7 @@
 namespace App\models;
 
 use App\models\DatabaseConnection;
+use PDO;
 
 class Exercise
 {
@@ -40,6 +41,11 @@ class Exercise
         )->fetchAll();
     }
 
+    public function getAnswersFromFulfillmentId(mixed $fulfillmentId): false|array
+    {
+        return $this->db->query("SELECT * from answers WHERE id_fulfillment = $fulfillmentId")->fetchAll();
+    }
+
     public function addExercise(string $title): ?int
     {
         // Add the exercise to the database
@@ -50,6 +56,13 @@ class Exercise
         }
 
         return null;  // Return null if the insertion failed
+    }
+
+    public function addFulfillment($exerciseId): false|string
+    {
+        $statement = $this->db->prepare("INSERT INTO fulfillments (id_exercise) VALUES (:exerciseId)");
+        $statement->execute(['exerciseId' => $exerciseId]);
+        return $this->db->lastInsertId();
     }
 
     public function getFieldById($fieldId)
@@ -71,19 +84,21 @@ class Exercise
         $statement->execute(['label' => $label, 'fieldKind' => $fieldKind, 'exercise' => $exercise]);
     }
 
-    public function getFields($exerciseId): false|array
-    {
-        return $this->db->query(
-            "SELECT id_field, label, value_kind from fields WHERE id_exercise = $exerciseId"
-        )->fetchAll();
-    }
-
     public function updateField($label, $fieldKind, $fieldId): void
     {
         $statement = $this->db->prepare(
             "UPDATE fields SET label = :label, value_kind = :fieldKind WHERE id_field = :fieldId"
         );
         $statement->execute(['label' => $label, 'fieldKind' => $fieldKind, 'fieldId' => $fieldId]);
+    }
+
+    public function getFields($exerciseId): false|array
+    {
+        $statement = $this->db->prepare(
+            "SELECT id_fields, label, value_kind FROM fields WHERE id_exercise = :exerciseId"
+        );
+        $statement->execute(['exerciseId' => $exerciseId]);
+        return $statement->fetchAll();
     }
 
     public function getCategorizedExercises(): array
@@ -109,5 +124,47 @@ class Exercise
     {
         $statement = $this->db->prepare("UPDATE exercises SET status = :newStatus WHERE id_exercise = :exerciseId");
         $statement->execute(['newStatus' => $newStatus, 'exerciseId' => $exerciseId]);
+    }
+
+    public function saveAnswers(mixed $exerciseId, array $answers)
+    {
+        $fulfillmentId = $this->addFulfillment($exerciseId);
+        $statement = $this->db->prepare(
+            "INSERT INTO answers (id_field, id_fulfillment, answer) VALUES (:idField, :idFulfillment, :answer)"
+        );
+        foreach ($answers as $idField => $value) {
+            $statement->execute(['idField' => $idField, 'idFulfillment' => $fulfillmentId, 'answer' => $value]);
+        }
+        return $fulfillmentId;
+    }
+
+    public function getExercise($exerciseId): array
+    {
+        $statement = $this->db->prepare("SELECT * FROM exercises WHERE id_exercise = :exerciseId");
+        $statement->execute(['exerciseId' => $exerciseId]);
+        return $statement->fetchAll();
+    }
+
+    public function getAnswersByFields($exerciseId): array
+    {
+        // Using a JOIN query for better performance and readability
+        $statement = $this->db->prepare(
+            "
+        SELECT a.*, f.label AS field_label, ful.fulfilled_at, f.id_exercise
+        FROM answers AS a
+        JOIN fields AS f ON a.id_fields = f.id_fields
+        JOIN fulfillments AS ful ON a.id_fulfillment = ful.id_fulfillment
+        WHERE f.id_exercise = :exerciseId;
+    "
+        );
+
+        // Binding the parameter
+        $statement->bindParam(':exerciseId', $exerciseId, PDO::PARAM_INT);
+
+        // Executing the query
+        $statement->execute();
+
+        // Fetching all results
+        return $statement->fetchAll();
     }
 }

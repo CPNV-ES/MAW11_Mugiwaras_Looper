@@ -31,6 +31,7 @@ $router = new \Mugiwaras\Framework\Core\Router([
 
     new Route("post", "/exercises/{exerciseId}/fulfillments", "ExercisesController@saveAnswers"),
     new Route("get", "/exercises/{exerciseId}/fulfillments/new", "ExercisesController@fulfillments"),
+    new Route("get", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}", "ExercisesController@fulfillment"),
     new Route("get", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}/edit", "ExercisesController@fulfillmentsEdit"),
     new Route("get","/exercises/{exerciseId}/results","ExercisesController@showResults"),
 ]);

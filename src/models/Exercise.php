@@ -149,6 +149,13 @@ class Exercise
         return $statement->fetchAll();
     }
 
+    public function getAnswers($fulfillmentId)
+    {
+        $statement = $this->db->prepare("SELECT * FROM answers WHERE id_fulfillment = :fulfillmentId");
+        $statement->execute(['fulfillmentId' => $fulfillmentId]);
+        return $statement->fetchAll();
+    }
+
     public function getAnswersByExerciseId($exerciseId): array
     {
         // Using a JOIN query for better performance and readability
@@ -166,6 +173,13 @@ class Exercise
         $statement->execute();
 
         // Fetching all results
+        return $statement->fetchAll();
+    }
+
+    public function getFulfillment(mixed $fulfillmentId)
+    {
+        $statement = $this->db->prepare("SELECT * FROM fulfillments WHERE id_fulfillment = :fulfillmentId");
+        $statement->execute(['fulfillmentId' => $fulfillmentId]);
         return $statement->fetchAll();
     }
 }

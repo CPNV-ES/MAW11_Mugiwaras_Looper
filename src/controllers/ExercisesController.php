@@ -76,7 +76,6 @@ class ExercisesController
         $answers = $this->model->getAnswersFromFulfillmentId($uriParams['fulfillmentId']);
 
         $data = ["exercise" => $exercise[0], "fields" => $fields, "answers" => $answers];
-
         Renderer::render("fulfillmentsEdit", $data);
     }
 
@@ -106,6 +105,7 @@ class ExercisesController
         $this->model->deleteExercise($uriParams['exerciseId']);
         header("Location: /exercises");
     }
+
     public function deleteField(array $uriParams): void
     {
         $this->model->deleteField($uriParams['exerciseId'], $uriParams['fieldId']);
@@ -133,8 +133,8 @@ class ExercisesController
 
     public function updateStatus(array $data): void
     {
-        $exerciseId = $_GET['id_exercise'] ?? null;
-        $newStatus = $_GET['newStatus'] ?? null;
+        $exerciseId = $data['exerciseId'] ?? null;
+        $newStatus = $data['query']['status'] ?? null;
         if ($exerciseId && $newStatus) {
             $this->model->updateExerciseStatus($exerciseId, $newStatus);
             header("Location: /exercises");
@@ -143,11 +143,12 @@ class ExercisesController
 
     public function showResults(array $data): void
     {
-        $exerciseId = $data['exerciseId'];
-        $data = $this->model->getAnswersByExerciseId($exerciseId);
+        $exerciseTitle = $this->model->getExercise($data['exerciseId']);
+        $data = $this->model->getAnswersByExerciseId($data['exerciseId']);
         $uniqueFields = $this->getUniqueFields($data);
         $answersByFulfillment = $this->groupAnswersByFulfillment($data);
-        Renderer::render("results", compact('uniqueFields', 'answersByFulfillment'));
+
+        Renderer::render("results", compact('uniqueFields', 'answersByFulfillment', 'exerciseTitle'));
     }
 
     private function getUniqueFields(array $data): array

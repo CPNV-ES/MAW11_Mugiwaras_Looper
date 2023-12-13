@@ -112,11 +112,13 @@ class ExercisesController
         }
         return $cleanArray;
     }
+
     public function deleteExercise(array $uriParams): void
     {
         $this->model->deleteExercise($uriParams['exerciseId']);
         header("Location: /exercises");
     }
+
     public function deleteField(array $uriParams): void
     {
         $this->model->deleteField($uriParams['exerciseId'], $uriParams['fieldId']);

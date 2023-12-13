@@ -14,8 +14,9 @@
         </thead>
         <tbody>
         <?php foreach ($answersByFulfillment as $fulfilled_at => $answers): ?>
+        <?php  ?>
             <tr>
-                <td><a href="/exercises/<?= $answers[0]['id_exercise'] ?>/fulfillments/<?= $answers[0]['fulfillment_id'] ?>"><?= $fulfilled_at ?></a></td>
+                <td><a href="/exercises/<?= $exerciseTitle[0]['id_exercise'] ?>/fulfillments/<?= $answers[0]['fulfillment_id'] ?>"><?= $fulfilled_at ?></a></td>
                 <?php foreach ($uniqueFields as $fieldLabel): ?>
                     <?php $answer = $answers[$fieldLabel] ?? ''; ?>
                     <td class="answer">

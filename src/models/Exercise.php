@@ -29,16 +29,14 @@ class Exercise
     {
         // Get the exercises from the database (titles and ids)
         return $this->db->query(
-            "SELECT id_exercise, title_exercise FROM exercises WHERE status = 'Answering'"
-        )->fetchAll();
+            "SELECT id_exercise, title_exercise FROM exercises WHERE status = 'Answering'")->fetchAll();
     }
 
     public function getAllExercises(): array|false
     {
         // Get the exercises from the database (titles and ids)
         return $this->db->query(
-            "SELECT id_exercise, title_exercise, status FROM exercises WHERE status IN ('Building', 'Answering', 'Closed')"
-        )->fetchAll();
+            "SELECT id_exercise, title_exercise, status FROM exercises WHERE status IN ('Building', 'Answering', 'Closed')")->fetchAll();
     }
 
     public function getAnswersFromFulfillmentId(mixed $fulfillmentId): false|array
@@ -52,10 +50,10 @@ class Exercise
         $statement = $this->db->prepare("INSERT INTO exercises (title_exercise, status) VALUES (:title, 'Building')");
 
         if ($statement->execute(['title' => $title])) {
-            return (int)$this->db->lastInsertId();  // Return the last inserted ID
+            return (int)$this->db->lastInsertId();
         }
 
-        return null;  // Return null if the insertion failed
+        return null;
     }
 
     public function addFulfillment($exerciseId): false|string
@@ -107,10 +105,10 @@ class Exercise
 
     public function getCategorizedExercises(): array
     {
-        // Fetch all exercises
+
         $allExercises = $this->getAllExercises();
 
-        // Initialize arrays for each status category
+
         $categorizedExercises = [
             'Building' => [],
             'Answering' => [],
@@ -140,6 +138,14 @@ class Exercise
             $statement->execute(['idField' => $idField, 'idFulfillment' => $fulfillmentId, 'answer' => $value]);
         }
         return $fulfillmentId;
+    }
+
+    public function updateAnswers($exerciseId, $answers): void
+    {
+        $statement = $this->db->prepare("UPDATE answers SET answer = :answer WHERE id_field = :idField AND id_fulfillment = :idFulfillment");
+        foreach ($answers as $idField => $value) {
+            $statement->execute(['answer' => $value, 'idField' => $idField, 'idFulfillment' => $exerciseId]);
+        }
     }
 
     public function getExercise($exerciseId): array

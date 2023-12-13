@@ -88,6 +88,14 @@ class ExercisesController
         header("Location: /exercises/" . $data['exerciseId'] . "/fulfillments/" . $fulfillmentId . "/edit");
     }
 
+    public function updateAnswers(array $data): void
+    {
+        $fulfillmentId = $data['fulfillmentId'] ?? '';
+        $answers = $this->arrayCleanup($data);
+        $this->model->updateAnswers($fulfillmentId, $answers);
+        header("Location: /exercises/" . $data['exerciseId'] . "/fulfillments/" . $data['fulfillmentId'] . "/edit");
+    }
+
     private function arrayCleanup(array $dirtyArray): array
     {
         $cleanArray = [];

@@ -34,6 +34,7 @@ $router = new \Mugiwaras\Framework\Core\Router([
     new Route("post", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}/edit", "AnswersController@update"),
 
     new Route("get","/exercises/{exerciseId}/results","ResultsController@index"),
+    new Route("get", "/exercises/{exerciseId}/results/{fieldId}", "ResultController@getResultsOfField"),
 ]);
 
 $router->run();

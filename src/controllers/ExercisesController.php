@@ -69,6 +69,17 @@ class ExercisesController
         Renderer::render("fulfillments", $data);
     }
 
+    public function fulfillment(array $uriParams): void
+    {
+        $answers = $this->model->getAnswers($uriParams['fulfillmentId']);
+        $fullfillment = $this->model->getFulfillment($uriParams['fulfillmentId']);
+        $fields = $this->model->getFields($fullfillment[0]['id_exercise']);
+
+        $data = ["answers" => $answers, "fulfillment" => $fullfillment[0], "fields" => $fields];
+
+        Renderer::render("fulfillment", $data);
+    }
+
     public function fulfillmentsEdit(array $uriParams): void
     {
         $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
@@ -108,6 +119,7 @@ class ExercisesController
         }
         return $cleanArray;
     }
+
     public function deleteExercise(array $uriParams): void
     {
         $this->model->deleteExercise($uriParams['exerciseId']);

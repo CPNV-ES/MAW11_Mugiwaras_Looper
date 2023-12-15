@@ -92,11 +92,13 @@ class Exercise
 
     public function getFields($exerciseId): false|array
     {
-        $statement = $this->db->prepare("SELECT id_field, label, value_kind FROM fields WHERE id_exercise = :exerciseId");
+        $statement = $this->db->prepare(
+            "SELECT id_field, label, value_kind FROM fields WHERE id_exercise = :exerciseId"
+        );
         $statement->execute(['exerciseId' => $exerciseId]);
         return $statement->fetchAll();
     }
-  
+
     public function deleteExercise($exerciseId): void
     {
         $statement = $this->db->prepare("DELETE FROM exercises WHERE id_exercise = :exerciseId");
@@ -155,15 +157,24 @@ class Exercise
         return $statement->fetchAll();
     }
 
+    public function getAnswers($fulfillmentId)
+    {
+        $statement = $this->db->prepare("SELECT * FROM answers WHERE id_fulfillment = :fulfillmentId");
+        $statement->execute(['fulfillmentId' => $fulfillmentId]);
+        return $statement->fetchAll();
+    }
+
     public function getAnswersByExerciseId($exerciseId): array
     {
         // Using a JOIN query for better performance and readability
-        $statement = $this->db->prepare("
+        $statement = $this->db->prepare(
+            "
         SELECT a.*, f.label AS field_label, ful.submited_at, f.id_exercise
         FROM answers AS a
         JOIN fields AS f ON a.id_field = f.id_field
         JOIN fulfillments AS ful ON a.id_fulfillment = ful.id_fulfillment
-        WHERE f.id_exercise = :exerciseId;");
+        WHERE f.id_exercise = :exerciseId;"
+        );
 
         // Binding the parameter
         $statement->bindParam(':exerciseId', $exerciseId, PDO::PARAM_INT);
@@ -172,6 +183,13 @@ class Exercise
         $statement->execute();
 
         // Fetching all results
+        return $statement->fetchAll();
+    }
+
+    public function getFulfillment(mixed $fulfillmentId)
+    {
+        $statement = $this->db->prepare("SELECT * FROM fulfillments WHERE id_fulfillment = :fulfillmentId");
+        $statement->execute(['fulfillmentId' => $fulfillmentId]);
         return $statement->fetchAll();
     }
 }

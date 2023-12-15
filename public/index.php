@@ -20,9 +20,10 @@ $router = new \Mugiwaras\Framework\Core\Router([
     new Route("get", "/exercises/answering", "ExercisesController@answering"),
 
     new Route("put", "/exercises/{exerciseId}", "ExercisesController@updateStatus"),
+    //used ?
     new Route('get', "/exercises/{id}/edit", "FieldsController@index"),
     new Route('get', "/exercises/{exerciseId}/results", "ResultsController@index"),
-    new Route("delete","/exercises/{exerciseId}","ExercisesController@delete"),
+    new Route("delete","/exercises/{exerciseId}","ExercisesController@destroy"),
 
 
     new Route("get", "/exercises/{exerciseId}/fields", "FieldsController@index"),

@@ -25,7 +25,7 @@ class ExercisesController extends baseController
         header("Location: /exercises/$exerciseId/fields");
     }
 
-    public function delete(array $uriParams): void
+    public function destroy(array $uriParams): void
     {
         $this->model->deleteExercise($uriParams['exerciseId']);
         header("Location: /exercises");

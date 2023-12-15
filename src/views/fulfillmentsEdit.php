@@ -5,7 +5,7 @@ require 'headers/fulfillmentsHeader.php'; ?>
     <h1>Your take</h1>
     <p>Bookmark this page, it's yours. You'll be able to come back later to finish.</p>
 
-    <form action="/exercises/<?= $data['exercise']['id_exercise'] ?>/fulfillments/<?= $data['answers'][0]['id_fulfillment']?>/edit" accept-charset="UTF-8" method="post">
+    <form action="/exercises/<?= $data['exercise']['id_exercise'] ?>/fulfillments/<?= $data['answers'][0]['id_fulfillment']?>" accept-charset="UTF-8" method="post">
         <?php
         $i = 0;
         foreach ($data['fields'] as $field): ?>

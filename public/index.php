@@ -37,9 +37,9 @@ $router = new \Mugiwaras\Framework\Core\Router([
     new Route("get", "/exercises/{exerciseId}/fulfillments/new", "FulfillmentController@new"),
     new Route("get", "/exercises/{exerciseId}/fulfillments", "FulfillmentController@index"),
     new Route("post", "/exercises/{exerciseId}/fulfillments", "FulfillmentController@create"),
-    new Route("get", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}", "FulfillmentController@fulfillment"),
+    new Route("get", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}", "FulfillmentController@show"),
     new Route("get", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}/edit", "FulfillmentController@edit"),
-    new Route("post", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}/edit", "AnswersController@update"),
+    new Route("post", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}", "FulfillmentController@update"),
 
     new Route("get","/exercises/{exerciseId}/results","ResultsController@index"),
     new Route("get", "/exercises/{exerciseId}/results/{fieldId}", "ResultsController@getResultsOfField"),

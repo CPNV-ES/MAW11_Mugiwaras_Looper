@@ -19,7 +19,6 @@ class Exercise
     {
         return $this->db->query("SELECT * from exercises order by id_exercise desc limit 1")->fetchAll();
     }
-
     public function getExerciseById($exerciseId): array
     {
         return $this->db->query("SELECT * from exercises WHERE id_exercise = $exerciseId")->fetchAll();
@@ -29,14 +28,16 @@ class Exercise
     {
         // Get the exercises from the database (titles and ids)
         return $this->db->query(
-            "SELECT id_exercise, title_exercise FROM exercises WHERE status = 'Answering'")->fetchAll();
+            "SELECT id_exercise, title_exercise FROM exercises WHERE status = 'Answering'"
+        )->fetchAll();
     }
 
     public function getAllExercises(): array|false
     {
         // Get the exercises from the database (titles and ids)
         return $this->db->query(
-            "SELECT id_exercise, title_exercise, status FROM exercises WHERE status IN ('Building', 'Answering', 'Closed')")->fetchAll();
+            "SELECT id_exercise, title_exercise, status FROM exercises WHERE status IN ('Building', 'Answering', 'Closed')"
+        )->fetchAll();
     }
 
     public function getAnswersFromFulfillmentId(mixed $fulfillmentId): false|array
@@ -96,7 +97,7 @@ class Exercise
         $statement->execute(['exerciseId' => $exerciseId]);
         return $statement->fetchAll();
     }
-  
+
     public function deleteExercise($exerciseId): void
     {
         $statement = $this->db->prepare("DELETE FROM exercises WHERE id_exercise = :exerciseId");
@@ -105,9 +106,7 @@ class Exercise
 
     public function getCategorizedExercises(): array
     {
-
         $allExercises = $this->getAllExercises();
-
 
         $categorizedExercises = [
             'Building' => [],
@@ -139,19 +138,17 @@ class Exercise
         }
         return $fulfillmentId;
     }
-
-    public function updateAnswers($exerciseId, $answers): void
-    {
-        $statement = $this->db->prepare("UPDATE answers SET answer = :answer WHERE id_field = :idField AND id_fulfillment = :idFulfillment");
-        foreach ($answers as $idField => $value) {
-            $statement->execute(['answer' => $value, 'idField' => $idField, 'idFulfillment' => $exerciseId]);
-        }
-    }
-
     public function getExercise($exerciseId): array
     {
         $statement = $this->db->prepare("SELECT * FROM exercises WHERE id_exercise = :exerciseId");
         $statement->execute(['exerciseId' => $exerciseId]);
+        return $statement->fetchAll();
+    }
+
+    public function getAnswers($fulfillmentId)
+    {
+        $statement = $this->db->prepare("SELECT * FROM answers WHERE id_fulfillment = :fulfillmentId");
+        $statement->execute(['fulfillmentId' => $fulfillmentId]);
         return $statement->fetchAll();
     }
 
@@ -163,7 +160,8 @@ class Exercise
         FROM answers AS a
         JOIN fields AS f ON a.id_field = f.id_field
         JOIN fulfillments AS ful ON a.id_fulfillment = ful.id_fulfillment
-        WHERE f.id_exercise = :exerciseId;");
+        WHERE f.id_exercise = :exerciseId;
+    ");
 
         // Binding the parameter
         $statement->bindParam(':exerciseId', $exerciseId, PDO::PARAM_INT);
@@ -172,6 +170,31 @@ class Exercise
         $statement->execute();
 
         // Fetching all results
+        return $statement->fetchAll();
+    }
+
+    public function getAnswersByFieldsId(int $fieldId): array
+    {
+        $statement = $this->db->prepare("
+        SELECT a.*, f.label AS field_label, ful.submited_at, f.id_exercise
+        FROM answers AS a
+        JOIN fields AS f ON a.id_field = f.id_field
+        JOIN fulfillments AS ful ON a.id_fulfillment = ful.id_fulfillment
+        WHERE a.id_field = :fieldId;
+        ");
+
+        $statement->bindParam(':fieldId', $fieldId, PDO::PARAM_INT);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+
+    }
+
+    public function getFulfillment(mixed $fulfillmentId)
+    {
+        $statement = $this->db->prepare("SELECT * FROM fulfillments WHERE id_fulfillment = :fulfillmentId");
+        $statement->execute(['fulfillmentId' => $fulfillmentId]);
         return $statement->fetchAll();
     }
 }

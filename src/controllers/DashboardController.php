@@ -5,7 +5,7 @@ namespace App\controllers;
 use App\core\Renderer;
 
 
-class HomeController
+class DashboardController
 {
     public function index(): void
     {

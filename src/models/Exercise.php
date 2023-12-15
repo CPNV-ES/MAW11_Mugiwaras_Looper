@@ -197,4 +197,14 @@ class Exercise
         $statement->execute(['fulfillmentId' => $fulfillmentId]);
         return $statement->fetchAll();
     }
+
+    public function updateAnswers(mixed $fulfillmentId, array $answers)
+    {
+        $statement = $this->db->prepare(
+            "UPDATE answers SET answer = :answer WHERE id_fulfillment = :fulfillmentId AND id_field = :idField"
+        );
+        foreach ($answers as $idField => $value) {
+            $statement->execute(['answer' => $value, 'fulfillmentId' => $fulfillmentId, 'idField' => $idField]);
+        }
+    }
 }

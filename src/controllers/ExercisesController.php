@@ -25,7 +25,7 @@ class ExercisesController extends baseController
         header("Location: /exercises/$exerciseId/fields");
     }
 
-    public function delete(array $uriParams): void
+    public function destroy(array $uriParams): void
     {
         $this->model->deleteExercise($uriParams['exerciseId']);
         header("Location: /exercises");
@@ -39,5 +39,11 @@ class ExercisesController extends baseController
             $this->model->updateExerciseStatus($exerciseId, $newStatus);
             header("Location: /exercises");
         }
+    }
+    public function answering(): void
+    {
+        $exercises = $this->model->getAllExercisesAnswering();
+        $data = ['exercises' => $exercises];
+        Renderer::render("answering", $data);
     }
 }

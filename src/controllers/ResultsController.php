@@ -17,7 +17,7 @@ class ResultsController extends baseController
         Renderer::render("results", compact('uniqueFields', 'answersByFulfillment', 'exerciseTitle'));
     }
 
-    public function getResultsOfField(array $params): void
+    public function show(array $params): void
     {
         $fieldId = $params['fieldId'];
 

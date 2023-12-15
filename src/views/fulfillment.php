@@ -1,3 +1,4 @@
+<?php require 'headers/resultsHeader.php'; ?>
 <body>
 <main class="container">
     <h1><?= $data['fulfillment']['submited_at'] ?> </h1>

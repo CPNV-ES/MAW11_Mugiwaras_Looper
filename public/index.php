@@ -29,12 +29,14 @@ $router = new \Mugiwaras\Framework\Core\Router([
     new Route("get", "/exercises/{exerciseId}/fields", "FieldsController@index"),
     new Route("post", "/exercises/{exerciseId}/fields", "FieldsController@create"),
 
+    //change to put ?
     new Route("post", "/exercises/{exerciseId}/fields/{fieldId}", "FieldsController@update"),
     new Route("get", "/exercises/{exerciseId}/fields/{fieldId}/edit", "FieldsController@edit"),
     new Route("delete", "/exercises/{exerciseId}/fields/{fieldId}", "FieldsController@delete"),
 
-    new Route("post", "/exercises/{exerciseId}/fulfillments", "AnswersController@save"),
-    new Route("get", "/exercises/{exerciseId}/fulfillments/new", "FulfillmentController@index"),
+    new Route("get", "/exercises/{exerciseId}/fulfillments/new", "FulfillmentController@new"),
+    new Route("get", "/exercises/{exerciseId}/fulfillments", "FulfillmentController@index"),
+    new Route("post", "/exercises/{exerciseId}/fulfillments", "FulfillmentController@create"),
     new Route("get", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}", "FulfillmentController@fulfillment"),
     new Route("get", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}/edit", "FulfillmentController@edit"),
     new Route("post", "/exercises/{exerciseId}/fulfillments/{fulfillmentId}/edit", "AnswersController@update"),

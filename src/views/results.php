@@ -7,27 +7,41 @@
         <thead>
         <tr>
             <th>Take</th>
-            <?php foreach ($uniqueFields as $fieldLabel): ?>
-                <th><a href="#"><?= $fieldLabel ?></a></th>
+            <?php foreach ($uniqueFields as $field): ?>
+                <th>
+                    <a href="/exercises/<?= $exerciseTitle[0]['id_exercise'] ?>/results/<?= $field['id'] ?>">
+                        <?= $field['label'] ?>
+                    </a>
+                </th>
             <?php endforeach; ?>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($answersByFulfillment as $fulfilled_at => $answers): ?>
-        <?php  ?>
+        <?php foreach ($answersByFulfillment as $fulfilledAt => $answersGroup): ?>
             <tr>
-                <td><a href="/exercises/<?= $exerciseTitle[0]['id_exercise'] ?>/fulfillments/<?= $answers[0]['fulfillment_id'] ?>"><?= $fulfilled_at ?></a></td>
-                <?php foreach ($uniqueFields as $fieldLabel): ?>
-                    <?php $answer = $answers[$fieldLabel] ?? ''; ?>
+                <td>
+                    <?php $fulfilledAtDisplayed = false; ?>
+                    <?php foreach ($answersGroup as $fieldLabel => $answerData): ?>
+                        <?php if (!$fulfilledAtDisplayed): ?>
+                            <a href="/exercises/<?= $exerciseTitle[0]['id_exercise'] ?>/fulfillments/<?= $answerData['fulfillmentId'] ?>">
+                                <?= $fulfilledAt ?>
+                            </a>
+                            <?php $fulfilledAtDisplayed = true; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </td>
+                <?php foreach ($uniqueFields as $field): ?>
+                    <?php $answerData = $answersGroup[$field['label']] ?? null; ?>
                     <td class="answer">
-                        <?php
-                        $answerLength = strlen($answer);
-                        if ($answerLength > 0 && $answerLength <= 10): ?>
-                            <i class="fa fa-check short"></i>
-                        <?php elseif ($answerLength > 10): ?>
-                            <i class="fa fa-check-double filled"></i>
-                        <?php else: ?>
-                            <i class="fa fa-times empty"></i>
+                        <?php if ($answerData): ?>
+                            <?php $answerLength = strlen($answerData['answer']); ?>
+                            <?php if ($answerLength > 0 && $answerLength <= 10): ?>
+                                <i class="fa fa-check short"></i>
+                            <?php elseif ($answerLength > 10): ?>
+                                <i class="fa fa-check-double filled"></i>
+                            <?php else: ?>
+                                <i class="fa fa-times empty"></i>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </td>
                 <?php endforeach; ?>

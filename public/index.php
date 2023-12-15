@@ -10,7 +10,7 @@ require APP_ROOT . '/vendor/autoload.php';
 Dotenv\Dotenv::createUnsafeImmutable(APP_ROOT)->load();
 
 $router = new \Mugiwaras\Framework\Core\Router([
-    new Route("get", "/", "HomeController@index"),
+    new Route("get", "/", "DashboardController@index"),
     new Route("get", "/exercises", "ExercisesController@index"),
     new Route("put", "/exercises/{exerciseId}", "ExercisesController@updateStatus"),
     new Route('get', "/exercises/{id}/edit", "FieldsController@index"),

@@ -189,17 +189,18 @@ input[type="submit"] {
 .doubleIcons {
   display: flex;
   flex-direction: column;
+  padding: 1px;
 }
 .doubleIcons a {
   height: 20px;
 
 }
 form.icon-form {
-  display: inline-block; /* Ensure the form takes up only as much width as necessary */
+  display: inline-block;
 }
 form.icon-form button {
-  padding: 0; /* Remove default button padding */
-  border: none; /* Remove default button border */
+  padding: 0;
+  border: none;
   cursor: pointer;
 }
 form.icon-form i {

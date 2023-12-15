@@ -87,7 +87,6 @@ class ExercisesController
         $answers = $this->model->getAnswersFromFulfillmentId($uriParams['fulfillmentId']);
 
         $data = ["exercise" => $exercise[0], "fields" => $fields, "answers" => $answers];
-
         Renderer::render("fulfillmentsEdit", $data);
     }
 
@@ -98,6 +97,14 @@ class ExercisesController
 
         $fulfillmentId = $this->model->saveAnswers($exerciseId, $answers);
         header("Location: /exercises/" . $data['exerciseId'] . "/fulfillments/" . $fulfillmentId . "/edit");
+    }
+
+    public function updateAnswers(array $data): void
+    {
+        $fulfillmentId = $data['fulfillmentId'] ?? '';
+        $answers = $this->arrayCleanup($data);
+        $this->model->updateAnswers($fulfillmentId, $answers);
+        header("Location: /exercises/" . $data['exerciseId'] . "/fulfillments/" . $data['fulfillmentId'] . "/edit");
     }
 
     private function arrayCleanup(array $dirtyArray): array
@@ -146,8 +153,8 @@ class ExercisesController
 
     public function updateStatus(array $data): void
     {
-        $exerciseId = $_GET['id_exercise'] ?? null;
-        $newStatus = $_GET['newStatus'] ?? null;
+        $exerciseId = $data['exerciseId'] ?? null;
+        $newStatus = $data['query']['status'] ?? null;
         if ($exerciseId && $newStatus) {
             $this->model->updateExerciseStatus($exerciseId, $newStatus);
             header("Location: /exercises");
@@ -156,11 +163,12 @@ class ExercisesController
 
     public function showResults(array $data): void
     {
-        $exerciseId = $data['exerciseId'];
-        $data = $this->model->getAnswersByExerciseId($exerciseId);
+        $exerciseTitle = $this->model->getExercise($data['exerciseId']);
+        $data = $this->model->getAnswersByExerciseId($data['exerciseId']);
         $uniqueFields = $this->getUniqueFields($data);
         $answersByFulfillment = $this->groupAnswersByFulfillment($data);
-        Renderer::render("results", compact('uniqueFields', 'answersByFulfillment'));
+
+        Renderer::render("results", compact('uniqueFields', 'answersByFulfillment', 'exerciseTitle'));
     }
 
     private function getUniqueFields(array $data): array

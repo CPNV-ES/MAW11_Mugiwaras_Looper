@@ -1,9 +1,9 @@
 <?php
-
-$dynamicHeader = '    
+$dynamicHeader = '
 <header class="heading results">
-      <section class="container">
+    <section class="container">
         <a href="/"><img src="/img/logo.png" /></a>
-        <span class="exercise-label">Exercise: <a href="/exercises/results"></a></span>
-      </section>
-    </header>';
+        <span class="exercise-label">Exercise: <a href="/exercises/' . $exerciseTitle[0]['id_exercise'] . '/results">' . $exerciseTitle[0]['title_exercise'] . '</a></span>
+    </section>
+</header>';
+

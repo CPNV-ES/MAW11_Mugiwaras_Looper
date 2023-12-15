@@ -19,7 +19,7 @@ require 'headers/manageHeader.php'; ?>
                         <td>
                             <a title="Be ready for answers" rel="nofollow" data-method="put" href="/exercises/<?= $exercise['id_exercise']?>?status=answering"><i class="fa fa-comment"></i></a>
                             <a title="Manage fields" href="/exercises/<?= $exercise['id_exercise'] ?>/fields"><i class="fa fa-edit"></i></a>
-                            <a data-confirm="Are you sure?" title="Destroy" rel="nofollow" data-method="delete" href="/exercises/<?= $exercise['id_exercise'] ?>"><i class="fa fa-trash"></i></a>
+                            <a data-confirm="Are you sure?" title="Destroy" rel="nofollow" data-method="delete" href="/exercises/<?= $exercise['id_exercise']?>"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -42,8 +42,8 @@ require 'headers/manageHeader.php'; ?>
                     <tr>
                         <td><?= htmlspecialchars($exercise['title_exercise']) ?></td>
                         <td>
-                            <a class="icon-link" title="Show results" href="/exercises/<?= $exercise['id_exercise'] ?>/results"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
-                            <a class="icon-link" title="Close" rel="nofollow" data-method="put" href="/exercises/<?= $exercise['id_exercise']?>?status=closed""><i class="fa fa-minus-circle"></i></a>
+                            <a class="doubleIcons" title="Show results" href="/exercises/<?= $exercise['id_exercise'] ?>/results"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+                            <a class="doubleIcons" title="Close" rel="nofollow" data-method="put" href="/exercises/<?= $exercise['id_exercise']?>?status=closed""><i class="fa fa-minus-circle"></i></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -66,8 +66,8 @@ require 'headers/manageHeader.php'; ?>
                     <tr>
                         <td><?= htmlspecialchars($exercise['title_exercise']) ?></td>
                         <td>
-                            <a class="icon-link" title="Show results" href="/exercises/<?= $exercise['id_exercise'] ?>/results"><i class="fa fa-bar-chart"></i></a>
-                            <a data-confirm="Are you sure?" title="Destroy" rel="nofollow" data-method="delete" href="/exercises/<?= $exercise['id_exercise'] ?>"><i class="fa fa-trash"></i></a>
+                            <a class="doubleIcons" title="Show results" href="/exercises/<?= $exercise['id_exercise'] ?>/results"><i class="fa fa-bar-chart"></i></a>
+                            <a class="doubleIcons" data-confirm="Are you sure?" title="Destroy" rel="nofollow" data-method="delete" href="/exercises/<?= $exercise['id_exercise'] ?>"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

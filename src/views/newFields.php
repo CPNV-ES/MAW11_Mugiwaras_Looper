@@ -1,9 +1,5 @@
-<header class="heading managing">
-    <section class="container">
-        <a href="/"><img src="/img/logo.png"  alt=""/></a>
-        <span class="exercise-label">exercise : <strong class="bolded"><?= $data['exercise']['title_exercise'] ?></strong></span>
-    </section>
-</header>
+<?php
+require 'headers/newFieldsHeader.php'; ?>
 <body>
 <main class="container">
     <div class="row">

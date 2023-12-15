@@ -11,16 +11,19 @@ Dotenv\Dotenv::createUnsafeImmutable(APP_ROOT)->load();
 
 $router = new \Mugiwaras\Framework\Core\Router([
     new Route("get", "/", "DashboardController@index"),
+
     new Route("get", "/exercises", "ExercisesController@index"),
     new Route("post", "/exercises", "ExercisesController@create"),
-    
+
+    new Route("get", "/exercises/new", "ExercisesController@new"),
+
+    new Route("get", "/exercises/answering", "ExercisesController@answering"),
+
     new Route("put", "/exercises/{exerciseId}", "ExercisesController@updateStatus"),
     new Route('get', "/exercises/{id}/edit", "FieldsController@index"),
     new Route('get', "/exercises/{exerciseId}/results", "ResultsController@index"),
     new Route("delete","/exercises/{exerciseId}","ExercisesController@delete"),
 
-    new Route("get", "/exercises/new", "ExercisesController@new"),
-    new Route("get", "/exercises/answering", "AnswersController@index"),
 
     new Route("get", "/exercises/{exerciseId}/fields", "FieldsController@index"),
     new Route("post", "/exercises/{exerciseId}/fields", "FieldsController@create"),

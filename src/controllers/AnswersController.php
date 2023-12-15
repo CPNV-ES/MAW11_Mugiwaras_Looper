@@ -6,13 +6,6 @@ use App\core\Renderer;
 
 class AnswersController extends baseController
 {
-    public function index(): void
-    {
-        // Call the function getAllExercises() in order to send the titles and ids of the exercises to the view
-        $exercises = $this->model->getAllExercisesAnswering();
-        $data = ['exercises' => $exercises];
-        Renderer::render("answering", $data);
-    }
     public function save(array $data): void
     {
         $exerciseId = $data['exerciseId'] ?? '';

@@ -40,4 +40,10 @@ class ExercisesController extends baseController
             header("Location: /exercises");
         }
     }
+    public function answering(): void
+    {
+        $exercises = $this->model->getAllExercisesAnswering();
+        $data = ['exercises' => $exercises];
+        Renderer::render("answering", $data);
+    }
 }

@@ -17,6 +17,21 @@ class ResultsController extends baseController
         Renderer::render("results", compact('uniqueFields', 'answersByFulfillment', 'exerciseTitle'));
     }
 
+    public function getResultsOfField(array $params): void
+    {
+        $fieldId = $params['fieldId'];
+
+        $answers = $this->model->getAnswersByFieldsId($fieldId);
+        $exercise = $this->model->getExercise($params['exerciseId']);
+        $exerciseTitle = $exercise[0]['title_exercise'];
+
+        $data['answers'] = $answers;
+        $data['exercise'] =  ['title' => $exerciseTitle, 'id' => $params['exerciseId']];
+
+        Renderer::render("fieldResults", $data);
+
+    }
+
     private function getUniqueFields(array $data): array
     {
         return array_unique(array_column($data, 'field_label'));

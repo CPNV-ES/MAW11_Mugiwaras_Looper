@@ -40,7 +40,7 @@ class FulfillmentController extends baseController
     public function delete(array $uriParams): void
     {
         $this->model->deleteFulfillment($uriParams['fulfillmentId']);
-        Renderer::render("dashboard");
+        header("Location: /");
     }
 
     private function arrayCleanup(array $dirtyArray): array

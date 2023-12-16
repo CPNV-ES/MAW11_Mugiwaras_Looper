@@ -6,7 +6,6 @@ use App\core\Renderer;
 
 class FulfillmentController extends baseController
 {
-    public function index()
     public function index(array $uriParams)
     {
         $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
@@ -36,6 +35,12 @@ class FulfillmentController extends baseController
         $answers = $this->arrayCleanup($data);
         $this->model->updateAnswers($fulfillmentId, $answers);
         header("Location: /exercises/" . $data['exerciseId'] . "/fulfillments/" . $data['fulfillmentId'] . "/edit");
+    }
+
+    public function delete(array $uriParams): void
+    {
+        $this->model->deleteFulfillment($uriParams['fulfillmentId']);
+        Renderer::render("dashboard");
     }
 
     private function arrayCleanup(array $dirtyArray): array

@@ -7,8 +7,12 @@ use App\core\Renderer;
 class FulfillmentController extends baseController
 {
     public function index()
+    public function index(array $uriParams)
     {
-        //todo implement
+        $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
+        $exerciseFullfillments = $this->model->getFulfillmentsByExerciseId($exercise[0]['id_exercise']);
+        $data = ["exercise" => $exercise[0],"exerciseFullfillments" => $exerciseFullfillments];
+        Renderer::render("exerciseFulfillments", $data);
     }
     public function new(array $uriParams): void
     {

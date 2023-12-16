@@ -191,6 +191,13 @@ class Exercise
 
     }
 
+    public function getFulfillmentsByExerciseId($exerciseId): array
+    {
+        $statement = $this->db->prepare("SELECT * FROM fulfillments WHERE id_exercise = :exerciseId");
+        $statement->execute(['exerciseId' => $exerciseId]);
+        return $statement->fetchAll();
+    }
+
     public function getFulfillment(mixed $fulfillmentId)
     {
         $statement = $this->db->prepare("SELECT * FROM fulfillments WHERE id_fulfillment = :fulfillmentId");

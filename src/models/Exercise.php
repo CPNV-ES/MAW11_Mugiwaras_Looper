@@ -191,12 +191,33 @@ class Exercise
 
     }
 
+    public function getFulfillmentsByExerciseId($exerciseId): array
+    {
+        $statement = $this->db->prepare("SELECT * FROM fulfillments WHERE id_exercise = :exerciseId");
+        $statement->execute(['exerciseId' => $exerciseId]);
+        return $statement->fetchAll();
+    }
+
     public function getFulfillment(mixed $fulfillmentId)
     {
         $statement = $this->db->prepare("SELECT * FROM fulfillments WHERE id_fulfillment = :fulfillmentId");
         $statement->execute(['fulfillmentId' => $fulfillmentId]);
         return $statement->fetchAll();
     }
+
+    public function deleteFulfillment($fulfillmentId): void
+    {
+        $this->deleteAnswersByFulfillmentId($fulfillmentId);
+        $statement = $this->db->prepare("DELETE FROM fulfillments WHERE id_fulfillment = :fulfillmentId");
+        $statement->execute(['fulfillmentId' => $fulfillmentId]);
+    }
+
+    private function deleteAnswersByFulfillmentId($fulfillmentId): void
+    {
+        $statement = $this->db->prepare("DELETE FROM answers WHERE id_fulfillment = :fulfillmentId");
+        $statement->execute(['fulfillmentId' => $fulfillmentId]);
+    }
+
 
     public function updateAnswers(mixed $fulfillmentId, array $answers)
     {

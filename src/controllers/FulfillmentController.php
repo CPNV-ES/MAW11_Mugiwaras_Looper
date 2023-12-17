@@ -6,9 +6,12 @@ use App\core\Renderer;
 
 class FulfillmentController extends baseController
 {
-    public function index()
+    public function index(array $uriParams)
     {
-        //todo implement
+        $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
+        $exerciseFullfillments = $this->model->getFulfillmentsByExerciseId($exercise[0]['id_exercise']);
+        $data = ["exercise" => $exercise[0],"exerciseFullfillments" => $exerciseFullfillments];
+        Renderer::render("exerciseFulfillments", $data);
     }
     public function new(array $uriParams): void
     {
@@ -32,6 +35,12 @@ class FulfillmentController extends baseController
         $answers = $this->arrayCleanup($data);
         $this->model->updateAnswers($fulfillmentId, $answers);
         header("Location: /exercises/" . $data['exerciseId'] . "/fulfillments/" . $data['fulfillmentId'] . "/edit");
+    }
+
+    public function delete(array $uriParams): void
+    {
+        $this->model->deleteFulfillment($uriParams['fulfillmentId']);
+        header("Location: /");
     }
 
     private function arrayCleanup(array $dirtyArray): array

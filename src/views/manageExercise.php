@@ -1,5 +1,5 @@
-<?php
-require 'headers/manageHeader.php'; ?>
+<?= $this->layout("headers/manageHeader"); ?>
+<?= $this->startSection('body'); ?>
 <main class="container">
     <div class="row">
         <!-- Building Section -->
@@ -76,3 +76,4 @@ require 'headers/manageHeader.php'; ?>
         </section>
     </div>
 </main>
+<?= $this->endSection(); ?>

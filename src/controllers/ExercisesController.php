@@ -10,12 +10,13 @@ class ExercisesController extends baseController
     public function index(): void
     {
         $categorizedExercises = $this->model->getCategorizedExercises();
-        Renderer::render("manageExercise", ['categorizedExercises' => $categorizedExercises]);
+        $this->renderer->render("manageExercise", ['categorizedExercises' => $categorizedExercises]);
+
     }
 
     public function new(): void
     {
-        Renderer::render("createExercise");
+        $this->renderer->render("createExercise");
     }
 
     public function create(array $data): void
@@ -45,6 +46,5 @@ class ExercisesController extends baseController
         $exercises = $this->model->getAllExercisesAnswering();
         $data = ['exercises' => $exercises];
         $this->renderer->render("answering", $data);
-
     }
 }

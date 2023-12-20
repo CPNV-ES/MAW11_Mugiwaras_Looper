@@ -10,8 +10,9 @@ class FulfillmentController extends baseController
     {
         $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
         $exerciseFullfillments = $this->model->getFulfillmentsByExerciseId($exercise[0]['id_exercise']);
+
         $data = ["exercise" => $exercise[0],"exerciseFullfillments" => $exerciseFullfillments];
-        Renderer::render("exerciseFulfillments", $data);
+        $this->renderer->render("exerciseFulfillments", $data);
     }
     public function new(array $uriParams): void
     {
@@ -19,7 +20,7 @@ class FulfillmentController extends baseController
         $fields = $this->model->getFields($exercise[0]['id_exercise']);
 
         $data = ["exercise" => $exercise[0], "fields" => $fields];
-        Renderer::render("fulfillments", $data);
+        $this->renderer->render("fulfillments", $data);
     }
     public function create(array $data): void
     {
@@ -63,7 +64,7 @@ class FulfillmentController extends baseController
 
         $data = ["answers" => $answers, "fulfillment" => $fullfillment[0], "fields" => $fields];
 
-        Renderer::render("fulfillment", $data);
+        $this->renderer->render("fulfillment", $data);
     }
 
     public function edit(array $uriParams): void
@@ -73,6 +74,6 @@ class FulfillmentController extends baseController
         $answers = $this->model->getAnswersFromFulfillmentId($uriParams['fulfillmentId']);
 
         $data = ["exercise" => $exercise[0], "fields" => $fields, "answers" => $answers];
-        Renderer::render("fulfillmentsEdit", $data);
+        $this->renderer->render("fulfillmentsEdit", $data);
     }
 }

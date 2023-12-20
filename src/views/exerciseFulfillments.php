@@ -1,4 +1,5 @@
-<?php require 'headers/fulfillmentsHeader.php'; ?>
+<?= $this->layout("headers/fulfillmentsHeader"); ?>
+<?= $this->startSection('body'); ?>
 <main class="container">
     <h1>Fulfillments for </h1>
 
@@ -28,3 +29,4 @@
         </tbody>
     </table>
 </main>
+<?= $this->endSection(); ?>

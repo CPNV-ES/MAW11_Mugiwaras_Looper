@@ -1,5 +1,5 @@
-<?php
-require 'headers/fulfillmentsHeader.php'; ?>
+<?= $this->layout("headers/fulfillmentsHeader"); ?>
+<?= $this->startSection('body'); ?>
 <body>
 <main class="container">
     <h1>Your take</h1>
@@ -19,5 +19,5 @@ require 'headers/fulfillmentsHeader.php'; ?>
         </div>
     </form>
 </main>
-
 </body>
+<?= $this->endSection(); ?>

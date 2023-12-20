@@ -14,7 +14,7 @@ class ResultsController extends baseController
         $uniqueFields = $this->getUniqueFields($answers);
         $answersByFulfillment = $this->groupAnswersByFulfillment($answers);
 
-        Renderer::render("results", compact('uniqueFields', 'answersByFulfillment', 'exerciseTitle'));
+        $this->renderer->render("results", compact('uniqueFields', 'answersByFulfillment', 'exerciseTitle'));
     }
 
     public function show(array $params): void
@@ -28,8 +28,7 @@ class ResultsController extends baseController
         $data['answers'] = $answers;
         $data['exercise'] =  ['title' => $exerciseTitle, 'id' => $params['exerciseId']];
 
-        Renderer::render("fieldResults", $data);
-
+        $this->renderer->render("fieldResults", $data);
     }
 
     private function getUniqueFields(array $data): array

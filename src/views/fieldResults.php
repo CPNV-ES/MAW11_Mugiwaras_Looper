@@ -1,5 +1,5 @@
-<?php require 'headers/resultsHeader.php'; ?>
-
+<?= $this->layout("headers/resultsHeader"); ?>
+<?= $this->startSection('body'); ?>
 <main class="container">
     <h1><?= $data['exercise']['title'] ?></h1>
 
@@ -20,3 +20,4 @@
         </tbody>
     </table>
 </main>
+<?= $this->endSection(); ?>

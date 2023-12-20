@@ -44,6 +44,7 @@ class ExercisesController extends baseController
     {
         $exercises = $this->model->getAllExercisesAnswering();
         $data = ['exercises' => $exercises];
-        Renderer::render("answering", $data);
+        $this->renderer->render("answering", $data);
+
     }
 }

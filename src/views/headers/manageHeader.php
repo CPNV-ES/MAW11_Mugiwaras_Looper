@@ -1,8 +1,8 @@
-<?php
-
-$dynamicHeader = '    
+<?= $this->layout('layout') ?>
+<?= $this->startSection('header'); ?>
 <header class="heading results">
-      <section class="container">
+    <section class="container">
         <a href="/"><img src="/img/logo.png" /></a>
-      </section>
-    </header>';
+    </section>
+</header>';
+<?= $this->endSection(); ?>

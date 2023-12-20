@@ -1,5 +1,5 @@
-<?php
-require 'headers/newFieldsHeader.php'; ?>
+<?= $this->layout("headers/newFieldsHeader"); ?>
+<?= $this->startSection('body'); ?>
 <body>
 <main class="container">
     <div class="row">
@@ -56,5 +56,5 @@ require 'headers/newFieldsHeader.php'; ?>
         </section>
     </div>
 </main>
-
 </body>
+<?= $this->endSection(); ?>

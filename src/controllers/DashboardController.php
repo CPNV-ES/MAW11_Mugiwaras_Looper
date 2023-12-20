@@ -2,16 +2,13 @@
 
 namespace App\controllers;
 
-use App\core\Renderer;
-
-
-class DashboardController
+class DashboardController extends baseController
 {
     public function index(): void
     {
         $dynamicHeader = [
             'currentPage' => 'dashboard-page'
         ];
-        Renderer::render("dashboard", $dynamicHeader);
+        $this->renderer->render("dashboard", $dynamicHeader);
     }
 }

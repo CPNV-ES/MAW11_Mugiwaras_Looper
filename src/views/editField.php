@@ -1,4 +1,4 @@
-<?= $this->layout("headers/exerciseNameHeader"); ?>
+<?= $this->layout("headers/newFieldsHeader");
 <?= $this->startSection('body'); ?>
 <body>
 <main class="container">

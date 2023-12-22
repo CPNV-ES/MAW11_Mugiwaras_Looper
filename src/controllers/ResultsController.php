@@ -9,26 +9,21 @@ class ResultsController extends baseController
 {
     public function index(array $data): void
     {
-        $exerciseTitle = $this->model->getExercise($data['exerciseId']);
+        $exercise = $this->model->getExercise($data['exerciseId']);
         $answers = $this->model->getAnswersByExerciseId($data['exerciseId']);
         $uniqueFields = $this->getUniqueFields($answers);
         $answersByFulfillment = $this->groupAnswersByFulfillment($answers);
 
-        $this->renderer->render("results", compact('uniqueFields', 'answersByFulfillment', 'exerciseTitle'));
+        $this->renderer->render("results", compact('uniqueFields', 'answersByFulfillment', 'exercise'));
     }
-
     public function show(array $params): void
     {
         $fieldId = $params['fieldId'];
-
         $answers = $this->model->getAnswersByFieldsId($fieldId);
         $exercise = $this->model->getExercise($params['exerciseId']);
-        $exerciseTitle = $exercise[0]['title_exercise'];
 
-        $data['answers'] = $answers;
-        $data['exercise'] =  ['title' => $exerciseTitle, 'id' => $params['exerciseId']];
+        $this->renderer->render("fieldResults", compact('exercise', 'answers'));
 
-        $this->renderer->render("fieldResults", $data);
     }
 
     private function getUniqueFields(array $data): array

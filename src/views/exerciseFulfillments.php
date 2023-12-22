@@ -1,4 +1,6 @@
-<?= $this->layout("headers/fulfillmentsHeader"); ?>
+<?= $this->layout("headers/fulfillmentsHeader");
+    $this->section("exercise",$exercise);
+    ?>
 <?= $this->startSection('body'); ?>
 <main class="container">
     <h1>Fulfillments for </h1>

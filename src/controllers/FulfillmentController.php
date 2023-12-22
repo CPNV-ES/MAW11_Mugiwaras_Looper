@@ -58,11 +58,12 @@ class FulfillmentController extends baseController
     }
     public function show(array $uriParams): void
     {
+        $exercise = $this->model->getExerciseById($uriParams['exerciseId']);
         $answers = $this->model->getAnswers($uriParams['fulfillmentId']);
         $fullfillment = $this->model->getFulfillment($uriParams['fulfillmentId']);
         $fields = $this->model->getFields($fullfillment[0]['id_exercise']);
 
-        $data = ["answers" => $answers, "fulfillment" => $fullfillment[0], "fields" => $fields];
+        $data = ["exercise" => $exercise, "answers" => $answers, "fulfillment" => $fullfillment[0], "fields" => $fields];
 
         $this->renderer->render("fulfillment", $data);
     }

@@ -13,7 +13,11 @@
         foreach ($fields as $field): ?>
         <div class="field">
             <label for="fulfillment_answers_attributes__value"><?= $field['label'] ?: 'Value'  ?></label>
+            <?php if ($field['value_kind'] === 'multi_line'): ?>
+            <textarea name="answer_<?=$field['id_field']?>" id="fulfillment_answers_attributes__value"><?= $answers[$i]['answer'] ?></textarea>
+            <?php else: ?>
             <input type="<?= $field['value_kind'] ?>" value="<?= $answers[$i]['answer'] ?>" name="answer_<?=$field['id_field']?>" id="fulfillment_answers_attributes__value">
+            <?php endif; ?>
         </div>
         <?php
         $i++;

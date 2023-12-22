@@ -1,5 +1,5 @@
-<?php
-require 'headers/createExerciseHeader.php'; ?>
+<?= $this->layout("headers/createExerciseHeader"); ?>
+<?= $this->startSection('body'); ?>
 <body>
 <main class="container">
     <h1>New Exercise</h1>
@@ -17,6 +17,5 @@ require 'headers/createExerciseHeader.php'; ?>
         </div>
     </form>
 </main>
-
 </body>
-
+<?= $this->endSection(); ?>

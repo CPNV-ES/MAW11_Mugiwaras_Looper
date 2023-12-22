@@ -12,7 +12,7 @@ class FieldsController extends baseController
         $fields = $this->model->getFields($exercise[0]['id_exercise']);
 
         $data = ["exercise" => $exercise[0], "fields" => $fields];
-        Renderer::render("newFields", $data);
+        $this->renderer->render("newFields", $data);
     }
 
     public function create(array $data): void
@@ -27,6 +27,7 @@ class FieldsController extends baseController
     public function delete(array $uriParams): void
     {
         $this->model->deleteField($uriParams['exerciseId'], $uriParams['fieldId']);
+
         header("Location: /exercises/" . $uriParams['exerciseId'] . "/fields");
     }
     public function edit(array $uriParams): void
@@ -35,7 +36,7 @@ class FieldsController extends baseController
         $field = $this->model->getFieldById($uriParams['fieldId']);
 
         $data = ["exercise" => $exercise[0], "field" => $field[0]];
-        Renderer::render("editField", $data);
+        $this->renderer->render("editField", $data);
     }
     public function update(array $data): void
     {

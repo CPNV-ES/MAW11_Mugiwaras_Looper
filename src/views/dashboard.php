@@ -1,5 +1,5 @@
-<?php
-require 'headers/dashboardHeader.php'; ?>
+<?= $this->layout("headers/dashboardHeader"); ?>
+<?= $this->startSection('body'); ?>
 <div class="container dashboard">
     <section class="row">
         <div class="column">
@@ -13,3 +13,4 @@ require 'headers/dashboardHeader.php'; ?>
         </div>
     </section>
 </div>
+<?= $this->endSection(); ?>

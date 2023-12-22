@@ -1,5 +1,5 @@
-<?php
-require 'headers/answeringHeader.php'; ?>
+<?= $this->layout("headers/answeringHeader"); ?>
+<?= $this->startSection('body'); ?>
 <main class="container">
     <ul class="answering-list">
         <?php
@@ -15,3 +15,4 @@ require 'headers/answeringHeader.php'; ?>
         endforeach; ?>
     </ul>
 </main>
+<?= $this->endSection(); ?>

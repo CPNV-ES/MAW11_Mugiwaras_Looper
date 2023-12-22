@@ -1,5 +1,8 @@
-<?php require 'headers/resultsHeader.php'; ?>
+<?= $this->layout("headers/resultsHeader");
+    $this->section("exercise",$exercise);
+?>
 
+<?= $this->startSection('body'); ?>
 <main class="container">
     <h1>Results</h1>
 
@@ -9,7 +12,7 @@
             <th>Take</th>
             <?php foreach ($uniqueFields as $field): ?>
                 <th>
-                    <a href="/exercises/<?= $exerciseTitle[0]['id_exercise'] ?>/results/<?= $field['id'] ?>">
+                    <a href="/exercises/<?= $exercise[0]['id_exercise'] ?>/results/<?= $field['id'] ?>">
                         <?= $field['label'] ?>
                     </a>
                 </th>
@@ -23,7 +26,7 @@
                     <?php $fulfilledAtDisplayed = false; ?>
                     <?php foreach ($answersGroup as $fieldLabel => $answerData): ?>
                         <?php if (!$fulfilledAtDisplayed): ?>
-                            <a href="/exercises/<?= $exerciseTitle[0]['id_exercise'] ?>/fulfillments/<?= $answerData['fulfillmentId'] ?>">
+                            <a href="/exercises/<?= $exercise[0]['id_exercise'] ?>/fulfillments/<?= $answerData['fulfillmentId'] ?>">
                                 <?= $fulfilledAt ?>
                             </a>
                             <?php $fulfilledAtDisplayed = true; ?>
@@ -50,3 +53,4 @@
         </tbody>
     </table>
 </main>
+<?= $this->endSection(); ?>

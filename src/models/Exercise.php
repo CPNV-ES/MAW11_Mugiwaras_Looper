@@ -29,7 +29,7 @@ class Exercise
 
     public function getAllExercises(): array|false
     {
-        return $this->qb->table("exercises")->where("status", "IS NOT NULL", null)->get(["id_exercise", "title_exercise"]);
+        return $this->qb->table("exercises")->where("status", "IS NOT NULL", null)->get(["id_exercise", "title_exercise", "status"]);
     }
 
     public function getAnswersFromFulfillmentId(mixed $fulfillmentId): false|array

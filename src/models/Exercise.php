@@ -39,12 +39,12 @@ class Exercise
 
     public function addExercise(string $title): ?int
     {
-        return $this->qb->table("exercises")->save(["title_exercise", "status"], [$title, "Building"]);
+        return $this->qb->table("exercises")->save(["title_exercise" => $title, "status" => "Building"]);
     }
 
     public function addFulfillment($exerciseId): false|string
     {
-        return $this->qb->table("fulfillments")->save("id_exercise", $exerciseId);
+        return $this->qb->table("fulfillments")->save(["id_exercise" => $exerciseId]);
     }
 
     public function getFieldById($fieldId)
@@ -59,7 +59,7 @@ class Exercise
 
     public function addField($label, $fieldKind, $exercise)
     {
-        return $this->qb->table("fields")->save(["label", "value_kind", "id_exercise"], [$label, $fieldKind, $exercise]);
+        return $this->qb->table("fields")->save(["label" => $label, "value_kind" => $fieldKind, "id_exercise" => $exercise]);
     }
 
     public function updateField($label, $fieldKind, $fieldId): void
@@ -103,7 +103,7 @@ class Exercise
     {
         $fulfillmentId = $this->addFulfillment($exerciseId);
         foreach ($answers as $idField => $value) {
-            $this->qb->table("answers")->save(["id_field", "id_fulfillment", "answer"], [$idField, $fulfillmentId, $value]);
+            $this->qb->table("answers")->save(["id_field" => $idField, "id_fulfillment" => $fulfillmentId, "answer" => $value]);
         }
         return $fulfillmentId;
     }

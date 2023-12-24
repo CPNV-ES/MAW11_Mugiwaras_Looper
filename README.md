@@ -62,32 +62,7 @@ This is a php web framework that uses the MVC pattern. It is a project for the W
 
 > Follow this [link](https://dev.mysql.com/downloads/installer/) that redirects to the official MySQL download page.
 
-<!-- The following installation procedure is not valid.  -->
 ### Installation
-
-#### Installing as a composer package
-
-1. add the repository to your composer.json
-```json
-{
-  "require": {
-      "mugiwaras/framework": "dev-main"
-    },
-  "repositories": [
-    {
-      type": "vcs",
-      url": "https://github.com/CPNV-ES/MAW11_Mugiwaras_Framework"
-    }
-  ]
-}
-```
-
-2. then use composer to install the package
-```shell
-composer update 
-```
-
-3. All done, you can now use the framework as you wish !
 
 #### Working as a contributor
 

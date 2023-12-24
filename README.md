@@ -1,5 +1,3 @@
-#
-
 <br />
 <div align="center">
 
@@ -64,19 +62,24 @@ This is a php web framework that uses the MVC pattern. It is a project for the W
 
 ### Installation
 
-#### Working as a contributor
-
 1. Clone the repository.
 ```shell
-git clone https://github.com/CPNV-ES/MAW11_Mugiwaras_Framework
+git clone https://github.com/CPNV-ES/MAW11_Mugiwaras_Looper.git
 ```
 
-2. install the dependencies with composer
+2. Install the dependencies with composer
 
 ```shell
 composer install
 ```
+3. Create the looper database in your mySQL server by importing the db_looper.sql creation file.
 
-3. copy the .env.example or set the required environment variables.
+4. Copy the .env.example or set the required environment variables.
 
-4. You are all set! You can now start working on the project.
+5. You are all set! You can now start working on the project.
+
+### Start the project
+
+```
+php -S localhost:8080 -t .\public\
+```

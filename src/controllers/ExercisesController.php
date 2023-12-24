@@ -3,10 +3,19 @@
 namespace App\controllers;
 
 use App\core\Renderer;
-use App\models\Exercise;
+use App\models\exerciseModel;
+use Mugiwaras\Framework\Core\Controller;
+use Mugiwaras\Framework\Core\Model;
 
-class ExercisesController extends baseController
+class ExercisesController extends controller
 {
+    private $model;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->model = new exerciseModel();
+    }
+
     public function index(): void
     {
         $categorizedExercises = $this->model->getCategorizedExercises();

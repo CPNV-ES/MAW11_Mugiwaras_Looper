@@ -70,11 +70,3 @@ This is a copy of looper useing the framework that we are developing beside. It 
     ```shell
     composer install
     ```
-
-# Open the diagrams
-
-* Follow this [link](https://app.diagrams.net/) that redirect on draw.io to open the diagrams.
-* Click on "Device"
-* Click on "open an existing diagram"
-* go under "MAW11_Mugiwaras_Looper\document"
-* Select the diagram that you want to open

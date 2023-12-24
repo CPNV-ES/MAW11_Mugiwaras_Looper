@@ -3,17 +3,26 @@
 namespace App\models;
 
 use Mugiwaras\Framework\Core\Model;
+use App\models\fulfillmentModel;
 
 class AnswerModel extends Model
 {
-    public function getAnswersFromFulfillmentId(mixed $fulfillmentId): false|array
+    private $fulfillmentModel;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->fulfillmentModel = new fulfillmentModel();
+    }
+
+    public function getAnswersFromFulfillmentId(mixed $fulfillmentId): bool|array
     {
         return $this->qb->table("answers")->where("id_fulfillment", "=", $fulfillmentId)->get();
     }
 
-    public function saveAnswers(mixed $exerciseId, array $answers)
+    public function saveAnswers(mixed $exerciseId, array $answers): bool|string
     {
-        $fulfillmentId = $this->addFulfillment($exerciseId);
+        $fulfillmentId = $this->fulfillmentModel->addFulfillment($exerciseId);
         foreach ($answers as $idField => $value) {
             $this->qb->table("answers")->save(
                 ["id_field" => $idField, "id_fulfillment" => $fulfillmentId, "answer" => $value]
@@ -21,10 +30,7 @@ class AnswerModel extends Model
         }
         return $fulfillmentId;
     }
-    public function addFulfillment($exerciseId): false|string
-    {
-        return $this->qb->table("fulfillments")->save(["id_exercise" => $exerciseId]);
-    }
+
     public function getAnswers($fulfillmentId)
     {
         return $this->qb->table("answers")->where("id_fulfillment", "=", $fulfillmentId)->get();

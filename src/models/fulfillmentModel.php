@@ -15,7 +15,10 @@ class fulfillmentModel extends Model
     {
         return $this->qb->table("fulfillments")->where("id_fulfillment", "=", $fulfillmentId)->get();
     }
-
+    public function addFulfillment($exerciseId): bool|string
+    {
+        return $this->qb->table("fulfillments")->save(["id_exercise" => $exerciseId]);
+    }
     public function deleteFulfillment($fulfillmentId): void
     {
         $this->deleteAnswersByFulfillmentId($fulfillmentId);

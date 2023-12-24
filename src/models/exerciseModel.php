@@ -7,11 +7,6 @@ use Mugiwaras\Framework\Core\Model;
 
 class exerciseModel extends Model
 {
-    public function getLastInsertedExercise(): array
-    {
-        return $this->qb->table("exercises")->desc("id_exercise")->limit(1)->get();
-    }
-
     public function getExerciseById($exerciseId): array
     {
         return $this->qb->table("exercises")->where("id_exercise", "=", $exerciseId)->get();
@@ -49,7 +44,6 @@ class exerciseModel extends Model
             'Closed' => []
         ];
 
-        // Categorize exercises based on their status
         foreach ($allExercises as $exercise) {
             $categorizedExercises[$exercise['status']][] = $exercise;
         }

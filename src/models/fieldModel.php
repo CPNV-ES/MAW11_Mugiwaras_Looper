@@ -11,7 +11,7 @@ class fieldModel extends Model
         return $this->qb->table("fields")->where("id_field", "=", $fieldId)->get();
     }
 
-    public function deleteField($fieldId)
+    public function deleteField($fieldId): void
     {
         $this->qb->table("fields")->where("id_field", "=", $fieldId)->delete();
     }
@@ -30,7 +30,7 @@ class fieldModel extends Model
         );
     }
 
-    public function getFields($exerciseId): false|array
+    public function getFields($exerciseId): array|bool
     {
         return $this->qb->table("fields")->where("id_exercise", "=", $exerciseId)->get(
             ["id_field", "label", "value_kind"]

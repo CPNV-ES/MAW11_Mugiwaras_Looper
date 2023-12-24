@@ -32,15 +32,19 @@ class ExercisesController extends baseController
         header("Location: /exercises");
     }
 
-    public function updateStatus(array $data): void
+    public function updateStatus(array $uriParams): void
     {
-        $exerciseId = $data['exerciseId'] ?? null;
-        $newStatus = $data['query']['status'] ?? null;
-        if ($exerciseId && $newStatus) {
+        $exerciseId = $uriParams['exerciseId'] ?? null;
+        $fields = $this->model->getFields($exerciseId);
+        $newStatus = $uriParams['query']['status'] ?? null;
+        if (!$fields) {
+            header("Location: /exercises/$exerciseId/fields");
+        } else {
             $this->model->updateExerciseStatus($exerciseId, $newStatus);
             header("Location: /exercises");
         }
     }
+    
     public function answering(): void
     {
         $exercises = $this->model->getAllExercisesAnswering();

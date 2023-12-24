@@ -8,7 +8,8 @@
     },
     "require": {
         "vlucas/phpdotenv": "^5.5",
-        "mugiwaras/framework": "dev-develop"
+        "mugiwaras/framework": "dev-develop",
+        "composer/composer": "^2.6"
     },
     "require-dev": {
         "symfony/var-dumper": "^6.3"

@@ -3,27 +3,42 @@
 namespace App\Controllers;
 
 use App\core\Renderer;
-use App\models\Exercise;
+use App\models\AnswerModel;
+use App\models\exerciseModel;
+use App\models\fieldModel;
+use App\models\fulfillmentModel;
+use Mugiwaras\Framework\Core\Controller;
 
-class ResultsController extends baseController
+class ResultsController extends controller
 {
+    private exerciseModel $exerciseModel;
+    private answerModel $answerModel;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->exerciseModel = new exerciseModel();
+        $this->answerModel = new answerModel();
+    }
+
     public function index(array $data): void
     {
-        $exercise = $this->model->getExercise($data['exerciseId']);
-        $answers = $this->model->getAnswersByExerciseId($data['exerciseId']);
+        $exercise = $this->exerciseModel->getExercise($data['exerciseId']);
+        $answers = $this->answerModel->getAnswersByExerciseId($data['exerciseId']);
         $uniqueFields = $this->getUniqueFields($answers);
         $answersByFulfillment = $this->groupAnswersByFulfillment($answers);
 
         $this->renderer->render("results", compact('uniqueFields', 'answersByFulfillment', 'exercise'));
     }
+
     public function show(array $params): void
     {
         $fieldId = $params['fieldId'];
-        $answers = $this->model->getAnswersByFieldsId($fieldId);
-        $exercise = $this->model->getExercise($params['exerciseId']);
+        $answers = $this->answerModel->getAnswersByFieldsId($fieldId);
+        $exercise = $this->exerciseModel->getExercise($params['exerciseId']);
 
         $this->renderer->render("fieldResults", compact('exercise', 'answers'));
-
     }
 
     private function getUniqueFields(array $data): array
@@ -34,9 +49,9 @@ class ResultsController extends baseController
             $fieldLabel = $row['field_label'];
             $fieldId = $row['id_field'];
 
-            // Check if the field label is not already in the $uniqueFields array
+            // Check if the fieldModel label is not already in the $uniqueFields array
             if (!isset($uniqueFields[$fieldLabel])) {
-                // Add the field label and field ID to the $uniqueFields array
+                // Add the fieldModel label and fieldModel ID to the $uniqueFields array
                 $uniqueFields[$fieldLabel] = [
                     'label' => $fieldLabel,
                     'id' => $fieldId,
@@ -47,7 +62,8 @@ class ResultsController extends baseController
         // Return only the values (without keys) to get a simple array
         return array_values($uniqueFields);
     }
-        private function groupAnswersByFulfillment(array $data): array
+
+    private function groupAnswersByFulfillment(array $data): array
     {
         $answersByFulfillment = [];
 
@@ -62,7 +78,7 @@ class ResultsController extends baseController
                 $answersByFulfillment[$fulfilled_at] = [];
             }
 
-            // Assign the answer to the corresponding timestamp and field label, along with fulfillment ID
+            // Assign the answer to the corresponding timestamp and fieldModel label, along with fulfillmentModel ID
             $answersByFulfillment[$fulfilled_at][$field_label]['answer'] = $answer;
             $answersByFulfillment[$fulfilled_at][$field_label]['fulfillmentId'] = $fulfillmentId;
         }

@@ -1,8 +1,9 @@
 <?php
-
 namespace App\controllers;
 
-class DashboardController extends baseController
+use Mugiwaras\Framework\Core\Controller;
+
+class DashboardController extends controller
 {
     public function index(): void
     {

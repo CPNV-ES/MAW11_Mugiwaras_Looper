@@ -31,7 +31,7 @@
 
 # About The Project
 
-This is a php web framework that uses the MVC pattern. It is a project for the Web Applications Development course at the CPNV. The goal of this project is to create a framework that should ease the creation of a website.
+This is a copy of looper useing the framework that we are developing beside. It is a project for the Web Applications Development course at the CPNV. The goal of this project is to copy http://exercice-looper.mycpnv.ch/ by using a framwork that we are currently developing.
 
 # Getting Started
 
@@ -47,6 +47,8 @@ This is a php web framework that uses the MVC pattern. It is a project for the W
 #### PHP
 
 > Use your favourite package manager to install PHP 8.2.9 (TS). Or follow this [link](https://www.php.net/manual/install.php) that redirects to the official PHP download page.
+
+> You have to uncomment "extension=pdo_mysql" in your php init file
 
 #### xdebug
 
